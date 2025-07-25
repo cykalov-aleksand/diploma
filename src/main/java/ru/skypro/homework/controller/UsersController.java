@@ -18,7 +18,6 @@ import ru.skypro.homework.service.UserServices;
 
 import java.io.IOException;
 
-//@CrossOrigin(value = "http://localhost:3000")
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
