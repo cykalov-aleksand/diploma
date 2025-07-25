@@ -15,4 +15,5 @@ ResponseEntity<Ad>updatingInformationAboutAd(int id, CreateOrUpdateAd createOrUp
     Ads getAdsFromAuthorized();
     void UpdatingAdImage(int id, MultipartFile image);
     Ad addingAd(CreateOrUpdateAd createOrUpdateAd,MultipartFile image);
+
 }
