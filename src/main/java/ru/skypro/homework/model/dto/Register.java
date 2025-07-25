@@ -1,25 +1,19 @@
-package ru.skypro.homework.dto;
+package ru.skypro.homework.model.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
-
 
 
 @Data
 public class Register {
-    @Size(min=4,max = 32)
-    @Schema(description = "логин")
+    @Schema(description = "логин",minLength = 4,maxLength = 32)
     private String username;
-    @Size(min=8,max = 16)
-    @Schema(description = "пароль")
+    @Schema(description = "пароль",minLength = 8,maxLength = 16)
     private String password;
-    @Size(min=2,max = 16)
-    @Schema(description = "имя пользователя")
+    @Schema(description = "имя пользователя",minLength = 2,maxLength = 16)
     private String firstName;
-    @Size(min=2,max = 16)
-    @Schema(description = "фамилия пользователя")
+    @Schema(description = "фамилия пользователя",minLength = 2,maxLength = 16)
     private String lastName;
     @Pattern(regexp ="\\+7\\s?\\(?\\d{3}\\)?\\s?\\d{3}-?\\d{2}-?\\d{2}")
     @Schema(description = "телефон пользователя",example = "+7(297)98339-39")

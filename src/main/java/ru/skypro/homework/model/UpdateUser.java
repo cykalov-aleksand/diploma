@@ -1,19 +1,16 @@
-package ru.skypro.homework.dto;
+package ru.skypro.homework.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 
 
 @Data
 public class UpdateUser {
-    @Size(min=3,max = 10)
-    @Schema(description = "имя пользователя")
+    @Schema(description = "имя пользователя",minLength = 3,maxLength = 10)
     private String firstName;
-    @Size(min=3,max = 10)
-    @Schema(description = "фамилия пользователя")
+    @Schema(description = "фамилия пользователя",minLength = 3,maxLength = 10)
     private String lastName;
     @Pattern(regexp ="\\+7\\s?\\(?\\d{3}\\)?\\s?\\d{3}-?\\d{2}-?\\d{2}")
     @Schema(description = "телефон пользователя",example = "+7 (695) 498-51-37")

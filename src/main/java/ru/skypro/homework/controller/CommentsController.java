@@ -8,7 +8,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.skypro.homework.dto.*;
+import ru.skypro.homework.model.CreateOrUpdateComment;
+import ru.skypro.homework.model.dto.Comment;
+import ru.skypro.homework.model.dto.Comments;
 import ru.skypro.homework.service.CommentsService;
 
 @RestController
