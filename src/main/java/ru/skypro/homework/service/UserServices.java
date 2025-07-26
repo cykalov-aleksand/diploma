@@ -7,8 +7,8 @@ import ru.skypro.homework.model.UpdateUser;
 import ru.skypro.homework.model.dto.User;
 
 public interface UserServices {
-    ResponseEntity<?> passwordUpdates(NewPassword newPassword);
-    ResponseEntity<User>getInformationAboutUser();
-    ResponseEntity<UpdateUser>updatingUserInformation(UpdateUser updateUser);
+    String passwordUpdates(NewPassword newPassword);
+    User getInformationAboutUser();
+    UpdateUser updatingUserInformation(UpdateUser updateUser);
     void updatingUsersAvatar(MultipartFile avatar);
 }

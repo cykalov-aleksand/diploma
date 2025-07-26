@@ -33,7 +33,7 @@ public class UsersController {
             @ApiResponse( description = "Unauthorized", responseCode = "401",content = { @Content(schema = @Schema()) }),
             @ApiResponse( description = "Forbidden", responseCode = "403",content = { @Content(schema = @Schema()) })
     })
-    public ResponseEntity<?> passwordUpdates(@RequestBody NewPassword newPassword) {
+    public String passwordUpdates(@RequestBody NewPassword newPassword) {
        return userServices.passwordUpdates(newPassword);
         }
     @Tag(name = "Пользователи")
@@ -44,7 +44,7 @@ public class UsersController {
                     { @Content(schema = @Schema(implementation = User.class), mediaType = "application/json") }),
             @ApiResponse( description = "Unauthorized", responseCode = "401",content = { @Content(schema = @Schema()) })
                 })
-    public ResponseEntity<User> getInformationAboutUser() {
+    public User getInformationAboutUser() {
         return userServices.getInformationAboutUser();
     }
     @Tag(name = "Пользователи")
@@ -55,7 +55,7 @@ public class UsersController {
             @Schema(implementation = UpdateUser.class), mediaType = "application/json") }),
             @ApiResponse( description = "Unauthorized", responseCode = "401",content = { @Content(schema = @Schema()) })
     })
-    public ResponseEntity<UpdateUser> updatingUserInformation(@RequestBody UpdateUser updateUser) {
+    public UpdateUser updatingUserInformation(@RequestBody UpdateUser updateUser) {
         return userServices.updatingUserInformation(updateUser);
     }
       @Tag(name = "Пользователи")
