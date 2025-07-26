@@ -12,12 +12,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ru.skypro.homework.dto.*;
+import ru.skypro.homework.model.CreateOrUpdateAd;
+import ru.skypro.homework.model.dto.Ad;
+import ru.skypro.homework.model.dto.Ads;
+import ru.skypro.homework.model.dto.ExtendedAd;
 import ru.skypro.homework.service.AdsService;
 
 import java.io.IOException;
 
-//@CrossOrigin(value = "http://localhost:3000")
 @RestController
 @RequestMapping("/ads")
 @RequiredArgsConstructor

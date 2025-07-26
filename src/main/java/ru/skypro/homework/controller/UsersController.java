@@ -11,14 +11,13 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ru.skypro.homework.dto.NewPassword;
-import ru.skypro.homework.dto.UpdateUser;
-import ru.skypro.homework.dto.User;
+import ru.skypro.homework.model.NewPassword;
+import ru.skypro.homework.model.UpdateUser;
+import ru.skypro.homework.model.dto.User;
 import ru.skypro.homework.service.UserServices;
 
 import java.io.IOException;
 
-//@CrossOrigin(value = "http://localhost:3000")
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
@@ -41,7 +40,8 @@ public class UsersController {
     @GetMapping("/me")
     @Operation(summary = "Получение информации об авторизованном пользователе")
     @ApiResponses(value = {
-            @ApiResponse( description = "Ok",responseCode = "200",content = { @Content(schema = @Schema(implementation = User.class), mediaType = "application/json") }),
+            @ApiResponse( description = "Ok",responseCode = "200",content =
+                    { @Content(schema = @Schema(implementation = User.class), mediaType = "application/json") }),
             @ApiResponse( description = "Unauthorized", responseCode = "401",content = { @Content(schema = @Schema()) })
                 })
     public ResponseEntity<User> getInformationAboutUser() {
@@ -51,7 +51,8 @@ public class UsersController {
     @PatchMapping("/me")
     @Operation(summary = "Обновление информации об авторизованном пользователе")
     @ApiResponses(value = {
-            @ApiResponse( description = "Ok",responseCode = "200",content = { @Content(schema = @Schema(implementation = UpdateUser.class), mediaType = "application/json") }),
+            @ApiResponse( description = "Ok",responseCode = "200",content = { @Content(schema =
+            @Schema(implementation = UpdateUser.class), mediaType = "application/json") }),
             @ApiResponse( description = "Unauthorized", responseCode = "401",content = { @Content(schema = @Schema()) })
     })
     public ResponseEntity<UpdateUser> updatingUserInformation(@RequestBody UpdateUser updateUser) {
