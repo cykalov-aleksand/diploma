@@ -9,9 +9,9 @@ import ru.skypro.homework.model.dto.ExtendedAd;
 
 public interface AdsService {
     Ads getAllService();
-    ResponseEntity<ExtendedAd>getInformationAboutAd(int id);
+    ExtendedAd getInformationAboutAd(int id);
     ResponseEntity<Void>deleteAd(int id);
-ResponseEntity<Ad>updatingInformationAboutAd(int id, CreateOrUpdateAd createOrUpdateAd);
+Ad updatingInformationAboutAd(int id, CreateOrUpdateAd createOrUpdateAd);
     Ads getAdsFromAuthorized();
     void UpdatingAdImage(int id, MultipartFile image);
     Ad addingAd(CreateOrUpdateAd createOrUpdateAd,MultipartFile image);

@@ -42,7 +42,7 @@ public class AdsController {
             @ApiResponse( description = "Unauthorized", responseCode = "401",content = { @Content(schema = @Schema()) }),
             @ApiResponse( description = "Not fount", responseCode ="404",content = { @Content(schema = @Schema()) })
     })
-    public ResponseEntity<ExtendedAd> getInformationAboutAd(@RequestParam("ID продукта")int id) {
+    public ExtendedAd getInformationAboutAd(@RequestParam("ID продукта")int id) {
        return adsService.getInformationAboutAd(id);
 
     }
@@ -67,7 +67,7 @@ public class AdsController {
             @ApiResponse( responseCode = "Forbidden", description = "403",content = { @Content(schema = @Schema()) }),
             @ApiResponse( responseCode = "Not fount", description = "404",content = { @Content(schema = @Schema()) })
     })
-    public ResponseEntity<Ad> updatingInformationAboutAd(@RequestParam("ID продукта")int id,@RequestBody CreateOrUpdateAd createOrUpdateAd) {
+    public Ad updatingInformationAboutAd(@RequestParam("ID продукта")int id,@RequestBody CreateOrUpdateAd createOrUpdateAd) {
         return adsService.updatingInformationAboutAd(id,createOrUpdateAd);
     }
     @Tag(name = "Объявления")
