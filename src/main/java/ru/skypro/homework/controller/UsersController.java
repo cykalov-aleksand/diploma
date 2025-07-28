@@ -24,7 +24,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
   @Tag(name = "Пользователи")
 public class UsersController {
-    private UserService userService;
+    private final UserService userService;
 
     @Tag(name = "Пользователи")
     @PostMapping("/set_password")

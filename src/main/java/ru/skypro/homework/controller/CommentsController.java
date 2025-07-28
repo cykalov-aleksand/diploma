@@ -19,7 +19,7 @@ import ru.skypro.homework.service.CommentService;
 @RequiredArgsConstructor
 @Tag(name = "Комментарии")
 public class CommentsController {
-    private CommentService commentService;
+    private final CommentService commentService;
     @Tag(name = "Комментарии")
     @GetMapping("/{id}/comments")
     @Operation(summary = "Получение комментариев объявления")

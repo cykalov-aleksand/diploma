@@ -26,7 +26,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Tag(name = "Объявления")
 public class AdsController {
-  private AdService adService;
+  private final AdService adService;
 
     @Tag(name = "Объявления")
     @GetMapping()
