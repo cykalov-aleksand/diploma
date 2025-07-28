@@ -24,7 +24,7 @@ public class WebSecurityConfig {
             "/webjars/**",
             "/login",
             "/register"
-    };
+                };
 
     @Bean
     public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
@@ -41,16 +41,14 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-                .cors(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(
+               .authorizeHttpRequests(
                         authorization ->
                                 authorization
                                         .requestMatchers(AUTH_WHITELIST)
                                         .permitAll()
-                                       // .mvcMatchers("/ads/**", "/users/**")
                                         .anyRequest()
                                         .authenticated())
-                 //.and()
+                .cors(AbstractHttpConfigurer::disable)
                 .httpBasic(withDefaults());
         return http.build();
     }

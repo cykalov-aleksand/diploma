@@ -16,23 +16,24 @@ import ru.skypro.homework.model.CreateOrUpdateAd;
 import ru.skypro.homework.model.dto.Ad;
 import ru.skypro.homework.model.dto.Ads;
 import ru.skypro.homework.model.dto.ExtendedAd;
-import ru.skypro.homework.service.AdsService;
+import ru.skypro.homework.service.AdService;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/ads")
 @RequiredArgsConstructor
 @Tag(name = "Объявления")
 public class AdsController {
-  private  AdsService adsService;
+  private final AdService adService;
 
     @Tag(name = "Объявления")
     @GetMapping()
     @Operation(summary = "Получение всех объявлений")
     @ApiResponse( description = "Ok",responseCode ="200", content = {@Content(schema = @Schema(implementation = Ads.class), mediaType = "application/json")})
-    public Ads getAllAds() {
-        return adsService.getAllService();
+    public Optional<Ads> getAllAds() {
+        return Optional.of(adService.getAllService());
     }
     @Tag(name = "Объявления")
     @GetMapping("/{id}")
@@ -43,7 +44,7 @@ public class AdsController {
             @ApiResponse( description = "Not fount", responseCode ="404",content = { @Content(schema = @Schema()) })
     })
     public ExtendedAd getInformationAboutAd(@RequestParam("ID продукта")int id) {
-       return adsService.getInformationAboutAd(id);
+       return adService.getInformationAboutAd(id);
 
     }
     @Tag(name = "Объявления")
@@ -56,7 +57,7 @@ public class AdsController {
             @ApiResponse( description = "Not fount", responseCode = "404",content = { @Content(schema = @Schema()) })
     })
     public ResponseEntity<Void> deleteAd(@RequestParam("ID продукта")int id) {
-        return adsService.deleteAd(id);
+        return adService.deleteAd(id);
     }
     @Tag(name = "Объявления")
     @PatchMapping("/{id}")
@@ -68,7 +69,7 @@ public class AdsController {
             @ApiResponse( responseCode = "Not fount", description = "404",content = { @Content(schema = @Schema()) })
     })
     public Ad updatingInformationAboutAd(@RequestParam("ID продукта")int id,@RequestBody CreateOrUpdateAd createOrUpdateAd) {
-        return adsService.updatingInformationAboutAd(id,createOrUpdateAd);
+        return adService.updatingInformationAboutAd(id,createOrUpdateAd);
     }
     @Tag(name = "Объявления")
     @GetMapping("/ads/me")
@@ -78,7 +79,7 @@ public class AdsController {
             @ApiResponse(responseCode = "Unauthorized", description = "401", content = {@Content(schema = @Schema())})
     })
     Ads getAdsFromAuthorized() {
-        return adsService.getAdsFromAuthorized();
+        return adService.getAdsFromAuthorized();
     }
     @Tag(name = "Объявления")
     @PatchMapping(value = "/{id}/image",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -93,7 +94,7 @@ public class AdsController {
         if(image.getSize()>=1024*300) {
             return ResponseEntity.status(401).build();
         }
-        adsService.UpdatingAdImage(id,image);
+        adService.UpdatingAdImage(id,image);
         return ResponseEntity.ok().build();
     }
        @Tag(name = "Объявления")
@@ -104,6 +105,6 @@ public class AdsController {
             @ApiResponse( responseCode = "Unauthorized", description = "401",content = { @Content(schema = @Schema()) })
                })
     public Ad addingAd(@RequestBody CreateOrUpdateAd createOrUpdateAd,@RequestParam MultipartFile image)throws IOException {
-       return adsService.addingAd(createOrUpdateAd,image);
+       return adService.addingAd(createOrUpdateAd,image);
          }
    }

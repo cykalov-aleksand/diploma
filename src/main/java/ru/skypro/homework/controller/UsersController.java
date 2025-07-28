@@ -14,7 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.model.NewPassword;
 import ru.skypro.homework.model.UpdateUser;
 import ru.skypro.homework.model.dto.User;
-import ru.skypro.homework.service.UserServices;
+import ru.skypro.homework.service.UserService;
+
 
 import java.io.IOException;
 
@@ -23,7 +24,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
   @Tag(name = "Пользователи")
 public class UsersController {
-    private  UserServices userServices;
+    private final UserService userService;
 
     @Tag(name = "Пользователи")
     @PostMapping("/set_password")
@@ -34,7 +35,7 @@ public class UsersController {
             @ApiResponse( description = "Forbidden", responseCode = "403",content = { @Content(schema = @Schema()) })
     })
     public String passwordUpdates(@RequestBody NewPassword newPassword) {
-       return userServices.passwordUpdates(newPassword);
+       return userService.passwordUpdates(newPassword);
         }
     @Tag(name = "Пользователи")
     @GetMapping("/me")
@@ -45,7 +46,7 @@ public class UsersController {
             @ApiResponse( description = "Unauthorized", responseCode = "401",content = { @Content(schema = @Schema()) })
                 })
     public User getInformationAboutUser() {
-        return userServices.getInformationAboutUser();
+        return userService.getInformationAboutUser();
     }
     @Tag(name = "Пользователи")
     @PatchMapping("/me")
@@ -56,7 +57,7 @@ public class UsersController {
             @ApiResponse( description = "Unauthorized", responseCode = "401",content = { @Content(schema = @Schema()) })
     })
     public UpdateUser updatingUserInformation(@RequestBody UpdateUser updateUser) {
-        return userServices.updatingUserInformation(updateUser);
+        return userService.updatingUserInformation(updateUser);
     }
       @Tag(name = "Пользователи")
      @PatchMapping(value = "/me/image",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -69,7 +70,7 @@ public class UsersController {
         if(image.getSize()>=1024*300) {
             return ResponseEntity.status(401).build();
         }
-        userServices.updatingUsersAvatar(image);
+        userService.updatingUsersAvatar(image);
         return ResponseEntity.ok().build();
     }
         }

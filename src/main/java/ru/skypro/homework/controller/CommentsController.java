@@ -11,14 +11,15 @@ import org.springframework.web.bind.annotation.*;
 import ru.skypro.homework.model.CreateOrUpdateComment;
 import ru.skypro.homework.model.dto.Comment;
 import ru.skypro.homework.model.dto.Comments;
-import ru.skypro.homework.service.CommentsService;
+import ru.skypro.homework.service.CommentService;
+
 
 @RestController
 @RequestMapping("/ads")
 @RequiredArgsConstructor
 @Tag(name = "Комментарии")
 public class CommentsController {
-    private CommentsService commentsService;
+    private final CommentService commentService;
     @Tag(name = "Комментарии")
     @GetMapping("/{id}/comments")
     @Operation(summary = "Получение комментариев объявления")
@@ -28,7 +29,7 @@ public class CommentsController {
             @ApiResponse( description = "Not fount", responseCode ="404",content = { @Content(schema = @Schema()) })
     })
     public Comments getCommentsOnAd(@RequestParam("ID продукта")int id) {
-        return commentsService.getCommentsOnAd(id);
+        return commentService.getCommentsOnAd(id);
     }
     @Tag(name = "Комментарии")
     @PostMapping("/{id}/comments")
@@ -39,7 +40,7 @@ public class CommentsController {
             @ApiResponse( description = "Not fount", responseCode ="404",content = { @Content(schema = @Schema()) })
     })
     public Comment addCommentToAd(@RequestParam("ID продукта")int id, @RequestBody String text) {
-        return commentsService.addCommentToAd(id,text);
+        return commentService.addCommentToAd(id,text);
     }
      @Tag(name = "Комментарии")
     @DeleteMapping("/{adId}/comments/{commentId}")
@@ -51,7 +52,7 @@ public class CommentsController {
             @ApiResponse( description = "Not fount", responseCode ="404",content = { @Content(schema = @Schema()) })
     })
     public Void deleteCommentToAdId(@RequestParam("ID продукта")int adId,int commentId) {
-        return commentsService.deleteCommentToAdId(adId,commentId);
+        return commentService.deleteCommentToAdId(adId,commentId);
     }
     @Tag(name = "Комментарии")
     @PatchMapping("/{adId}/comments/{commentId}")
@@ -63,6 +64,6 @@ public class CommentsController {
             @ApiResponse( description = "Not fount", responseCode ="404",content = { @Content(schema = @Schema()) })
     })
     public Comment updatingComment(@RequestParam("ID продукта")int adId, int commentId, @RequestBody CreateOrUpdateComment createOrUpdateComment) {
-        return commentsService.updatingComment(adId,commentId,createOrUpdateComment);
+        return commentService.updatingComment(adId,commentId,createOrUpdateComment);
     }
    }
