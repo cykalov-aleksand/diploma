@@ -9,4 +9,5 @@ public class Ads {
     @Schema(description = "общее количество объявлений")
     private int count;
     private List<Ad>results;
+
 }
