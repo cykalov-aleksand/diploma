@@ -40,6 +40,7 @@ public class AdsControllerTest {
             .andDo(print())
             .andExpect(status().is(400));
 }
+
      @Test
     @WithMockUser
     public void deleteAdTest()throws Exception{
