@@ -3,7 +3,9 @@ package ru.skypro.homework.controller;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
@@ -19,26 +21,24 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(AdsController.class)
-@Import(WebSecurityConfig.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 public class AdsControllerTest {
    @Autowired
     private MockMvc mockMvc;
    @MockBean
    private AdService adService;
-    @InjectMocks
-    private AdsController adsController;
-  @Test
+    @Test
 @WithMockUser
     public void getInformationAboutAdTest()throws Exception{
     ExtendedAd user=new ExtendedAd();
    int id=1;
 
     when(adService.getInformationAboutAd(id)).thenReturn(user);
-    mockMvc.perform(MockMvcRequestBuilders.get("/ads/"+ id)
+    mockMvc.perform(MockMvcRequestBuilders.get("/ads/{id}",id)
                     .accept(MediaType.APPLICATION_JSON))
             .andDo(print())
-            .andExpect(status().is(400));
+            .andExpect(status().is(200));
 }
 
      @Test
@@ -50,7 +50,7 @@ public class AdsControllerTest {
                         .get("/ads" )
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().is(401));
+                .andExpect(status().is(200));
     }
 }
 
