@@ -1,5 +1,6 @@
 package ru.skypro.homework.controller;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -9,8 +10,10 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import ru.skypro.homework.model.CreateOrUpdateComment;
+import ru.skypro.homework.model.dto.Ad;
+import ru.skypro.homework.model.dto.Comment;
 import ru.skypro.homework.model.dto.Comments;
-import ru.skypro.homework.model.dto.ExtendedAd;
 import ru.skypro.homework.service.CommentService;
 
 import static org.mockito.Mockito.when;
@@ -20,10 +23,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class CommentsControllerTest {
-                @Autowired
-        private MockMvc mockMvc;
-        @MockBean
-        private CommentService commentService;
+    @Autowired
+    private MockMvc mockMvc;
+    @MockBean
+    private CommentService commentService;
+
     @Test
     @WithMockUser
     public void getCommentsOnAdAuthorizedTest() throws Exception {
@@ -34,8 +38,9 @@ public class CommentsControllerTest {
                 .andDo(print())
                 .andExpect(status().is(200));
     }
+
     @Test
-       public void getCommentsOnAdNoAuthorizedTest() throws Exception {
+    public void getCommentsOnAdNoAuthorizedTest() throws Exception {
         int id = 1;
         when(commentService.getCommentsOnAd(id)).thenReturn(new Comments());
         this.mockMvc.perform(MockMvcRequestBuilders.get("/ads/{id}/comments?id=" + id, "id")
@@ -44,4 +49,38 @@ public class CommentsControllerTest {
                 .andExpect(status().is(401));
     }
 
+    @Test
+    @WithMockUser
+    public void updatingCommentAuthorizedTest() throws Exception {
+        CreateOrUpdateComment beforeChange = new CreateOrUpdateComment();
+        Comment afterChange = new Comment();
+        Ad ad = new Ad();
+        JSONObject createObject = new org.json.JSONObject();
+        createObject.put("text", "Комментарий");
+        when(commentService.updatingComment(ad.getPk(), afterChange.getPk(), beforeChange)).thenReturn(afterChange);
+        mockMvc.perform(MockMvcRequestBuilders.patch("/ads/{adId}/comments/{commentId}?adId=" + ad.getPk()
+                                + "&commentId=" + afterChange.getPk(), "adId", "commentId")
+                        .content(createObject.toString())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().is(200));
+    }
+
+    @Test
+    public void updatingCommentNoAuthorizedTest() throws Exception {
+        CreateOrUpdateComment beforeChange = new CreateOrUpdateComment();
+        Comment afterChange = new Comment();
+        Ad ad = new Ad();
+        JSONObject createObject = new org.json.JSONObject();
+        createObject.put("text", "Комментарий");
+        when(commentService.updatingComment(ad.getPk(), afterChange.getPk(), beforeChange)).thenReturn(afterChange);
+        mockMvc.perform(MockMvcRequestBuilders.patch("/ads/{adId}/comments/{commentId}?adId=" + ad.getPk()
+                                + "&commentId=" + afterChange.getPk(), "adId", "commentId")
+                        .content(createObject.toString())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().is(401));
+    }
 }

@@ -63,7 +63,7 @@ public class CommentsController {
             @ApiResponse( description = "Forbidden", responseCode = "403",content = { @Content(schema = @Schema()) }),
             @ApiResponse( description = "Not fount", responseCode ="404",content = { @Content(schema = @Schema()) })
     })
-    public Comment updatingComment(@RequestParam("ID продукта")int adId, int commentId, @RequestBody CreateOrUpdateComment createOrUpdateComment) {
+    public Comment updatingComment(@RequestParam("adId")int adId,@RequestParam("commentId")int commentId, @RequestBody CreateOrUpdateComment createOrUpdateComment) {
         return commentService.updatingComment(adId,commentId,createOrUpdateComment);
     }
    }

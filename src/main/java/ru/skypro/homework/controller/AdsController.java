@@ -71,7 +71,7 @@ public class AdsController {
             @ApiResponse(responseCode = "Forbidden", description = "403", content = {@Content(schema = @Schema())}),
             @ApiResponse(responseCode = "Not fount", description = "404", content = {@Content(schema = @Schema())})
     })
-    public Ad updatingInformationAboutAd(@RequestParam("ID продукта") int id, @RequestBody CreateOrUpdateAd createOrUpdateAd) {
+    public Ad updatingInformationAboutAd(@RequestParam("id") int id, @RequestBody CreateOrUpdateAd createOrUpdateAd) {
         return adService.updatingInformationAboutAd(id, createOrUpdateAd);
     }
 

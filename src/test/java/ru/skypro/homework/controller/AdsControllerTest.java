@@ -1,18 +1,17 @@
 package ru.skypro.homework.controller;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import ru.skypro.homework.config.WebSecurityConfig;
+import ru.skypro.homework.model.CreateOrUpdateAd;
+import ru.skypro.homework.model.dto.Ad;
 import ru.skypro.homework.model.dto.Ads;
 import ru.skypro.homework.model.dto.ExtendedAd;
 import ru.skypro.homework.service.AdService;
@@ -79,6 +78,41 @@ public class AdsControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().is(200));
+    }
+    @Test
+    @WithMockUser
+    public void updatingInformationAboutAdAuthorizedTest() throws Exception {
+        CreateOrUpdateAd createOrUpdateAd=new CreateOrUpdateAd();
+        int id=1;
+        JSONObject createObject = new org.json.JSONObject();
+        createObject.put("title", "");
+        createObject.put("description", "");
+        createObject.put("price", 1000000);
+
+        when(adService.updatingInformationAboutAd(id,createOrUpdateAd)).thenReturn(new Ad());
+        mockMvc.perform(MockMvcRequestBuilders.patch("/ads/{id}?id="+id,"id=")
+                        .content(createObject.toString())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().is(200));
+    }
+    @Test
+        public void updatingInformationAboutAdNoAuthorizedTest() throws Exception {
+        CreateOrUpdateAd createOrUpdateAd=new CreateOrUpdateAd();
+        int id=1;
+        JSONObject createObject = new org.json.JSONObject();
+        createObject.put("title", "");
+        createObject.put("description", "");
+        createObject.put("price", 1000000);
+
+        when(adService.updatingInformationAboutAd(id,createOrUpdateAd)).thenReturn(new Ad());
+        mockMvc.perform(MockMvcRequestBuilders.patch("/ads/{id}?id="+id,"id=")
+                        .content(createObject.toString())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().is(401));
     }
 }
 

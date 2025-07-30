@@ -18,7 +18,7 @@ public class AdService {
         return new Ads();
 }
 public ExtendedAd getInformationAboutAd(int id){
-        return new ExtendedAd(1,"автор","фамилия","щбъявление","mail.ru","fdgdfg","23213",12321,"dfgdfg");
+        return new ExtendedAd();
 }
 public ResponseEntity<Void> deleteAd(int id){
         return ResponseEntity.ok().build();
