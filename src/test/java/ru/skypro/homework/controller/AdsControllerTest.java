@@ -24,30 +24,58 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class AdsControllerTest {
-   @Autowired
+    @Autowired
     private MockMvc mockMvc;
-   @MockBean
-   private AdService adService;
+    @MockBean
+    private AdService adService;
+
     @Test
-@WithMockUser
-    public void getInformationAboutAdTest()throws Exception{
-    ExtendedAd user=new ExtendedAd();
-   int id=1;
-
-    when(adService.getInformationAboutAd(id)).thenReturn(user);
-    mockMvc.perform(MockMvcRequestBuilders.get("/ads/{id}",id)
-                    .accept(MediaType.APPLICATION_JSON))
-            .andDo(print())
-            .andExpect(status().is(200));
-}
-
-     @Test
     @WithMockUser
-    public void deleteAdTest()throws Exception{
-        Ads user=new Ads();
-        when(adService.getAllService()).thenReturn(user);
+    public void getInformationAboutAdAuthorizedTest() throws Exception {
+        int id = 1;
+        when(adService.getInformationAboutAd(id)).thenReturn(new ExtendedAd());
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/ads/{id}?id=" + id, "id=")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().is(200));
+    }
+    @Test
+        public void getInformationAboutAdNoAuthorizedTest() throws Exception {
+        int id = 1;
+        when(adService.getInformationAboutAd(id)).thenReturn(new ExtendedAd());
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/ads/{id}?id=" + id, "id=")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().is(401));
+    }
+
+    @Test
+    @WithMockUser
+    public void getAdsFromAuthorizedTest() throws Exception {
+        Ads user = new Ads();
+        when(adService.getAdsFromAuthorized()).thenReturn(user);
+        mockMvc.perform(MockMvcRequestBuilders.get("/ads/me")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().is(200));
+    }
+    @Test
+       public void getAdsFromNoAuthorizedTest() throws Exception {
+        Ads user = new Ads();
+        when(adService.getAdsFromAuthorized()).thenReturn(user);
+        mockMvc.perform(MockMvcRequestBuilders.get("/ads/me")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().is(401));
+    }
+
+
+    @Test
+    @WithMockUser
+    public void getAllAdsAuthorizedTest() throws Exception {
+        when(adService.getAllService()).thenReturn(new Ads());
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/ads" )
+                        .get("/ads")
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().is(200));

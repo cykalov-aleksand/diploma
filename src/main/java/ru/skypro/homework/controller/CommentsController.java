@@ -28,7 +28,7 @@ public class CommentsController {
             @ApiResponse( description = "Unauthorized", responseCode = "401",content = { @Content(schema = @Schema()) }),
             @ApiResponse( description = "Not fount", responseCode ="404",content = { @Content(schema = @Schema()) })
     })
-    public Comments getCommentsOnAd(@RequestParam("ID продукта")int id) {
+    public Comments getCommentsOnAd(@RequestParam("id")int id) {
         return commentService.getCommentsOnAd(id);
     }
     @Tag(name = "Комментарии")
