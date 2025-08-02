@@ -29,8 +29,8 @@ public Ad updatingInformationAboutAd(int id, CreateOrUpdateAd createOrUpdateAd){
     public Ads getAdsFromAuthorized(){
         return null;
     }
-    public void UpdatingAdImage(int id, MultipartFile image){
-
+    public ResponseEntity<String> UpdatingAdImage(int id, MultipartFile image){
+return ResponseEntity.status(200).build();
     }
     public Ad addingAd(CreateOrUpdateAd createOrUpdateAd,MultipartFile image){
         return null;
