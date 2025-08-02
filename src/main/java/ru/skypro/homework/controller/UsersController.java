@@ -11,9 +11,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ru.skypro.homework.model.NewPassword;
-import ru.skypro.homework.model.UpdateUser;
-import ru.skypro.homework.model.dto.User;
+import ru.skypro.homework.dto.NewPassword;
+import ru.skypro.homework.dto.UpdateUser;
+import ru.skypro.homework.dto.User;
 import ru.skypro.homework.service.UserService;
 
 
@@ -67,11 +67,8 @@ public class UsersController {
             @ApiResponse( description = "Unauthorized", responseCode = "401",content = { @Content(schema = @Schema()) })
     })
     public ResponseEntity<Void> updatingUsersAvatar( @RequestParam MultipartFile image)throws IOException {
-        if(image.getSize()>=1024*300) {
-            return ResponseEntity.status(401).build();
-        }
-        userService.updatingUsersAvatar(image);
-        return ResponseEntity.ok().build();
+
+        return userService.updatingUsersAvatar(image);
     }
         }
 

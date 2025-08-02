@@ -1,8 +1,7 @@
-package ru.skypro.homework.model;
+package ru.skypro.homework.dto;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import ru.skypro.homework.model.dto.User;
 
 import java.util.Collection;
 import java.util.List;

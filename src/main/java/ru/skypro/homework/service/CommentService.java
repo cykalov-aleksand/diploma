@@ -1,9 +1,9 @@
 package ru.skypro.homework.service;
 
 import org.springframework.stereotype.Service;
-import ru.skypro.homework.model.CreateOrUpdateComment;
-import ru.skypro.homework.model.dto.Comment;
-import ru.skypro.homework.model.dto.Comments;
+import ru.skypro.homework.dto.CreateOrUpdateComment;
+import ru.skypro.homework.dto.Comment;
+import ru.skypro.homework.dto.Comments;
 @Service
 public class CommentService {
         public Comments getCommentsOnAd(int id) {
