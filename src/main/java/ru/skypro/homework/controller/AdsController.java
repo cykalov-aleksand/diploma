@@ -101,11 +101,7 @@ public class AdsController {
             @ApiResponse(responseCode = "Not fount", description = "404", content = {@Content(schema = @Schema())})
     })
     public ResponseEntity<String> UpdatingAdImage(@RequestParam("id") int id, @RequestParam MultipartFile image) throws IOException {
-        if (image.getSize() >= 1024 * 300) {
-            return ResponseEntity.status(403).build();
-        }
-        adService.UpdatingAdImage(id, image);
-        return ResponseEntity.ok().build();
+              return adService.UpdatingAdImage(id, image);
     }
 
     @Tag(name = "Объявления")
