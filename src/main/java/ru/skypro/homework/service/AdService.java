@@ -3,10 +3,10 @@ package ru.skypro.homework.service;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import ru.skypro.homework.model.CreateOrUpdateAd;
-import ru.skypro.homework.model.dto.Ad;
-import ru.skypro.homework.model.dto.Ads;
-import ru.skypro.homework.model.dto.ExtendedAd;
+import ru.skypro.homework.dto.CreateOrUpdateAd;
+import ru.skypro.homework.dto.Ad;
+import ru.skypro.homework.dto.Ads;
+import ru.skypro.homework.dto.ExtendedAd;
 
 @Service
 public class AdService {

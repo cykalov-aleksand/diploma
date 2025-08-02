@@ -10,10 +10,10 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import ru.skypro.homework.model.CreateOrUpdateComment;
-import ru.skypro.homework.model.dto.Ad;
-import ru.skypro.homework.model.dto.Comment;
-import ru.skypro.homework.model.dto.Comments;
+import ru.skypro.homework.dto.CreateOrUpdateComment;
+import ru.skypro.homework.dto.Ad;
+import ru.skypro.homework.dto.Comment;
+import ru.skypro.homework.dto.Comments;
 import ru.skypro.homework.service.CommentService;
 
 import static org.mockito.Mockito.when;

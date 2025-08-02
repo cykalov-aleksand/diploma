@@ -12,10 +12,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ru.skypro.homework.model.CreateOrUpdateAd;
-import ru.skypro.homework.model.dto.Ad;
-import ru.skypro.homework.model.dto.Ads;
-import ru.skypro.homework.model.dto.ExtendedAd;
+import ru.skypro.homework.dto.CreateOrUpdateAd;
+import ru.skypro.homework.dto.Ad;
+import ru.skypro.homework.dto.Ads;
+import ru.skypro.homework.dto.ExtendedAd;
 import ru.skypro.homework.service.AdService;
 
 import java.io.IOException;
@@ -31,7 +31,8 @@ public class AdsController {
     @Tag(name = "Объявления")
     @GetMapping()
     @Operation(summary = "Получение всех объявлений")
-    @ApiResponse(description = "Ok", responseCode = "200", content = {@Content(schema = @Schema(implementation = Ads.class), mediaType = "application/json")})
+    @ApiResponse(description = "Ok", responseCode = "200", content =
+            {@Content(schema = @Schema(implementation = Ads.class), mediaType = "application/json")})
     public Optional<Ads> getAllAds() {
         return Optional.of(adService.getAllService());
     }
@@ -40,7 +41,8 @@ public class AdsController {
     @GetMapping("/{id}")
     @Operation(summary = "Получение информации об объявлении")
     @ApiResponses(value = {
-            @ApiResponse(description = "Ok", responseCode = "200", content = {@Content(schema = @Schema(implementation = ExtendedAd.class), mediaType = "application/json")}),
+            @ApiResponse(description = "Ok", responseCode = "200", content =
+                    {@Content(schema = @Schema(implementation = ExtendedAd.class), mediaType = "application/json")}),
             @ApiResponse(description = "Unauthorized", responseCode = "401", content = {@Content(schema = @Schema())}),
             @ApiResponse(description = "Not fount", responseCode = "404", content = {@Content(schema = @Schema())})
     })
@@ -66,7 +68,8 @@ public class AdsController {
     @PatchMapping("/{id}")
     @Operation(summary = "Обновление информации об объявлении")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "Ok", description = "200", content = {@Content(schema = @Schema(implementation = Ad.class), mediaType = "application/json")}),
+            @ApiResponse(responseCode = "Ok", description = "200", content =
+                    {@Content(schema = @Schema(implementation = Ad.class), mediaType = "application/json")}),
             @ApiResponse(responseCode = "Unauthorized", description = "401", content = {@Content(schema = @Schema())}),
             @ApiResponse(responseCode = "Forbidden", description = "403", content = {@Content(schema = @Schema())}),
             @ApiResponse(responseCode = "Not fount", description = "404", content = {@Content(schema = @Schema())})
@@ -79,7 +82,8 @@ public class AdsController {
     @GetMapping("/me")
     @Operation(summary = "Получение объявлений авторизованного пользователя")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "Ok", description = "200", content = {@Content(schema = @Schema(implementation = Ads.class), mediaType = "application/json")}),
+            @ApiResponse(responseCode = "Ok", description = "200", content =
+                    {@Content(schema = @Schema(implementation = Ads.class), mediaType = "application/json")}),
             @ApiResponse(responseCode = "Unauthorized", description = "401", content = {@Content(schema = @Schema())})
     })
     Ads getAdsFromAuthorized() {
@@ -90,14 +94,15 @@ public class AdsController {
     @PatchMapping(value = "/{id}/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Обновление картинки объявления")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "Ok", description = "200", content = {@Content(schema = @Schema(implementation = String.class), mediaType = "application/octet-stream")}),
+            @ApiResponse(responseCode = "Ok", description = "200", content =
+                    {@Content(schema = @Schema(implementation = String.class), mediaType = "application/octet-stream")}),
             @ApiResponse(responseCode = "Unauthorized", description = "401", content = {@Content(schema = @Schema())}),
             @ApiResponse(responseCode = "Forbidden", description = "403", content = {@Content(schema = @Schema())}),
             @ApiResponse(responseCode = "Not fount", description = "404", content = {@Content(schema = @Schema())})
     })
-    public ResponseEntity<String> UpdatingAdImage(@PathVariable int id, @RequestParam MultipartFile image) throws IOException {
+    public ResponseEntity<String> UpdatingAdImage(@RequestParam("id") int id, @RequestParam MultipartFile image) throws IOException {
         if (image.getSize() >= 1024 * 300) {
-            return ResponseEntity.status(401).build();
+            return ResponseEntity.status(403).build();
         }
         adService.UpdatingAdImage(id, image);
         return ResponseEntity.ok().build();
@@ -107,10 +112,11 @@ public class AdsController {
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Добавление объявления")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "Created", description = "201", content = {@Content(schema = @Schema(implementation = Ad.class), mediaType = "application/json")}),
+            @ApiResponse(responseCode = "Created", description = "201", content =
+                    {@Content(schema = @Schema(implementation = Ad.class), mediaType = "application/json")}),
             @ApiResponse(responseCode = "Unauthorized", description = "401", content = {@Content(schema = @Schema())})
     })
-    public Ad addingAd(@RequestBody CreateOrUpdateAd createOrUpdateAd, @RequestParam MultipartFile image) throws IOException {
+       public Ad addingAd(@RequestBody CreateOrUpdateAd createOrUpdateAd, @RequestParam MultipartFile image) throws IOException {
         return adService.addingAd(createOrUpdateAd, image);
     }
 }
