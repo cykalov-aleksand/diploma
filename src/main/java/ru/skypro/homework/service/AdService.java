@@ -7,10 +7,14 @@ import ru.skypro.homework.dto.CreateOrUpdateAd;
 import ru.skypro.homework.dto.Ad;
 import ru.skypro.homework.dto.Ads;
 import ru.skypro.homework.dto.ExtendedAd;
+import ru.skypro.homework.repository.AdRepository;
 
 @Service
 public class AdService {
-    public AdService() {
+  private final AdRepository adRepository;
+
+    public AdService(AdRepository adRepository) {
+        this.adRepository = adRepository;
     }
 
     public Ads getAllService(){

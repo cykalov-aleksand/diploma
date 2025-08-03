@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import ru.skypro.homework.model.AdModel;
 import ru.skypro.homework.model.UserModel;
 
 import javax.sql.DataSource;
@@ -45,6 +46,7 @@ public class MainDataSourceConfiguration {
         return builder
                 .dataSource(myDataSource())
                 .packages(UserModel.class)
+                //.packages(AdModel.class)
                 .build();
     }
 }

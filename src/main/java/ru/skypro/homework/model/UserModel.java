@@ -1,19 +1,19 @@
 package ru.skypro.homework.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
 @Entity
+@Table(name = "user_model")
 public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String email;
+    @Column(nullable = false, name = "first_name")
     private String firstName;
+    @Column(nullable = false, name = "last_name")
     private String lastName;
     private String phone;
     private String image;

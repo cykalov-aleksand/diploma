@@ -4,9 +4,17 @@ import org.springframework.stereotype.Service;
 import ru.skypro.homework.dto.CreateOrUpdateComment;
 import ru.skypro.homework.dto.Comment;
 import ru.skypro.homework.dto.Comments;
+import ru.skypro.homework.repository.CommentRepository;
+
 @Service
 public class CommentService {
-        public Comments getCommentsOnAd(int id) {
+    private final CommentRepository commentRepository;
+
+    public CommentService(CommentRepository commentRepository) {
+        this.commentRepository = commentRepository;
+    }
+
+    public Comments getCommentsOnAd(int id) {
         return null;
     }
 
