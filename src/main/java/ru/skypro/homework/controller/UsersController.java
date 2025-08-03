@@ -70,5 +70,6 @@ public class UsersController {
 
         return userService.updatingUsersAvatar(image);
     }
+
         }
 

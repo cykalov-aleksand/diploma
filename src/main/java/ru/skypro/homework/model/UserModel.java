@@ -1,6 +1,7 @@
 package ru.skypro.homework.model;
 
 import jakarta.persistence.*;
+import ru.skypro.homework.dto.Role;
 
 import java.util.Objects;
 
@@ -17,8 +18,18 @@ public class UserModel {
     private String lastName;
     private String phone;
     private String image;
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
     public UserModel(){}
+
+    public UserModel(String email, String firstName, String lastName, String phone, String image, Role role) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phone = phone;
+        this.image = image;
+        this.role = role;
+    }
 
     @Override
     public boolean equals(Object object) {
@@ -80,12 +91,25 @@ public class UserModel {
         this.image = image;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "UserModel{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phone='" + phone + '\'' +
+                ", image='" + image + '\'' +
+                ", role=" + role +
+                '}';
     }
 }
 

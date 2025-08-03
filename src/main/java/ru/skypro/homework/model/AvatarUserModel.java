@@ -1,6 +1,8 @@
 package ru.skypro.homework.model;
 
+
 import jakarta.persistence.*;
+
 
 import java.util.Objects;
 @Table(name = "avatar_user")
@@ -16,9 +18,11 @@ public class AvatarUserModel {
     @Column(nullable = false, name = "file_size")
     private long fileSize;
     @Lob
+    @Column(name = "data")
     private byte[] data;
     @OneToOne
-    private UserModel userModel;
+    @JoinColumn(name = "user_id")
+       private UserModel userModel;
 public AvatarUserModel(){}
 
     @Override

@@ -6,6 +6,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 import ru.skypro.homework.dto.Register;
+import ru.skypro.homework.dto.Role;
+import ru.skypro.homework.model.UserModel;
+import ru.skypro.homework.repository.UserRepository;
 import ru.skypro.homework.service.AuthService;
 
 @Service
@@ -13,11 +16,12 @@ public class AuthServiceImpl implements AuthService {
 
     private final UserDetailsManager manager;
     private final PasswordEncoder encoder;
+    private final UserRepository userRepository;
 
-    public AuthServiceImpl(UserDetailsManager manager,
-                           PasswordEncoder passwordEncoder) {
+    public AuthServiceImpl(UserDetailsManager manager, PasswordEncoder encoder, UserRepository userRepository) {
         this.manager = manager;
-        this.encoder = passwordEncoder;
+        this.encoder = encoder;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -31,7 +35,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public boolean register(Register register) {
-        if (manager.userExists(register.getUsername())) {
+              if (manager.userExists(register.getUsername())) {
             return false;
         }
         manager.createUser(
@@ -41,7 +45,9 @@ public class AuthServiceImpl implements AuthService {
                         .username(register.getUsername())
                         .roles(register.getRole().name())
                         .build());
-        return true;
+        System.out.println(register.getRole().name());
+        userRepository.saveRule(register.getFirstName(), register.getLastName(), register.getPhone(), register.getRole().name());
+               return true;
     }
 
 

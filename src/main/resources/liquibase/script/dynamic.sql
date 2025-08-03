@@ -8,7 +8,7 @@ CREATE TABLE user_model(
     last_name TEXT,
     phone TEXT,
     image TEXT,
-    role TEXT);
+    role VARCHAR);
 
     -- changeset acycalov:2
     CREATE TABLE ad_model(
@@ -33,7 +33,7 @@ CREATE TABLE user_model(
         file_patch TEXT,
         media_type TEXT,
         file_size INTEGER,
-        data BYTEA);
+        data BYTEA );
 
 -- changeset acycalov:5
     CREATE TABLE avatar_ad(

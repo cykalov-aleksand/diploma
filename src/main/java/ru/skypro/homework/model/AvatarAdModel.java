@@ -17,9 +17,11 @@ public class AvatarAdModel {
     @Column(nullable = false, name = "file_size")
     private long fileSize;
     @Lob
+    @Column( name = "data")
     private byte[] data;
     @OneToOne
-    private AdModel adModel;
+    @JoinColumn(name = "ad_id")
+     private AdModel adModel;
 public AvatarAdModel(){}
 
     @Override

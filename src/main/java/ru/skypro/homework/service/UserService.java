@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.NewPassword;
 import ru.skypro.homework.dto.UpdateUser;
 import ru.skypro.homework.dto.User;
+import ru.skypro.homework.model.UserModel;
 import ru.skypro.homework.repository.UserRepository;
 
 import java.io.IOException;
@@ -36,4 +37,4 @@ public class UserService{
     public ResponseEntity<Void> updatingUsersAvatar(MultipartFile avatar)throws IOException {
 return ResponseEntity.status(200).build();
     }
-}
+    }
