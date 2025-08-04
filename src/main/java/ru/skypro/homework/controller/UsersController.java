@@ -34,7 +34,7 @@ public class UsersController {
             @ApiResponse( description = "Unauthorized", responseCode = "401",content = { @Content(schema = @Schema()) }),
             @ApiResponse( description = "Forbidden", responseCode = "403",content = { @Content(schema = @Schema()) })
     })
-    public String passwordUpdates(@RequestBody NewPassword newPassword) {
+    public ResponseEntity<Void> passwordUpdates(@RequestBody NewPassword newPassword) {
        return userService.passwordUpdates(newPassword);
         }
     @Tag(name = "Пользователи")

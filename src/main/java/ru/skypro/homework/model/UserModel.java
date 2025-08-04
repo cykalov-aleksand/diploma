@@ -11,6 +11,9 @@ public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    @Column(nullable = false, name = "user_name")
+    private String userName;
+    private String password;
     private String email;
     @Column(nullable = false, name = "first_name")
     private String firstName;
@@ -22,14 +25,6 @@ public class UserModel {
     private Role role;
     public UserModel(){}
 
-    public UserModel(String email, String firstName, String lastName, String phone, String image, Role role) {
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phone = phone;
-        this.image = image;
-        this.role = role;
-    }
 
     @Override
     public boolean equals(Object object) {
@@ -43,12 +38,28 @@ public class UserModel {
         return Objects.hashCode(id);
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
@@ -103,6 +114,8 @@ public class UserModel {
     public String toString() {
         return "UserModel{" +
                 "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

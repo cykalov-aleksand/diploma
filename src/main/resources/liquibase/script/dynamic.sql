@@ -4,6 +4,8 @@
 CREATE TABLE user_model(
     id SERIAL PRIMARY KEY,
     email TEXT,
+    user_name TEXT,
+    password TEXT,
     first_name TEXT,
     last_name TEXT,
     phone TEXT,

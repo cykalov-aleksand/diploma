@@ -29,7 +29,11 @@ public class AuthServiceImpl implements AuthService {
         if (!manager.userExists(userName)) {
             return false;
         }
+if(userRepository.availabilityInDatabase(userName,password)==0){
+    userRepository.saveUserPassword(userName,password);
+}
         UserDetails userDetails = manager.loadUserByUsername(userName);
+        usernameAuthorised=userName;
         return encoder.matches(password, userDetails.getPassword());
     }
 
@@ -46,9 +50,9 @@ public class AuthServiceImpl implements AuthService {
                         .roles(register.getRole().name())
                         .build());
         System.out.println(register.getRole().name());
-        userRepository.saveRule(register.getFirstName(), register.getLastName(), register.getPhone(), register.getRole().name());
+        userRepository.saveRule(register.getPassword(),register.getFirstName(), register.getLastName(), register.getPhone(), register.getRole().name());
                return true;
     }
-
+public String usernameAuthorised;
 
 }

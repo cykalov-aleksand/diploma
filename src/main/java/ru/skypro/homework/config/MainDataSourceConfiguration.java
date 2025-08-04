@@ -16,6 +16,8 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import ru.skypro.homework.model.AdModel;
+import ru.skypro.homework.model.AvatarAdModel;
+import ru.skypro.homework.model.AvatarUserModel;
 import ru.skypro.homework.model.UserModel;
 import ru.skypro.homework.service.impl.AuthServiceImpl;
 
@@ -60,6 +62,8 @@ public class MainDataSourceConfiguration {
         return builder
                 .dataSource(myDataSource())
                 .packages(UserModel.class)
+                .packages(AvatarUserModel.class)
+                .packages(AvatarAdModel.class)
                 //.packages(AdModel.class)
                 .build();
     }
