@@ -33,7 +33,7 @@ public interface UserRepository extends JpaRepository<UserModel,Integer> {
      * Создаем SQL запрос для поиска строки с указанным userName
      */
     @Query(value = "SELECT * FROM user_model WHERE user_name= ?1", nativeQuery = true)
-    UserModel InformationAboutUser(String userName);
+    UserModel informationAboutUser(String userName);
     /**
      * Создаем SQL запрос для поиска строки по userName и password
      */
@@ -54,5 +54,12 @@ public interface UserRepository extends JpaRepository<UserModel,Integer> {
     @Modifying
     @Query(value = "UPDATE user_model SET first_name=?1, last_name=?2, phone=?3 WHERE user_name=?4", nativeQuery = true)
     void updatingUserInformationAuthorised(String firstName,String lastName,String phone,String userName);
+    /**
+     * Создаем SQL запрос для проведения корректировки ссылки на avatar по указанному user_name
+     */
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE user_model SET image=?1 WHERE user_name=?2", nativeQuery = true)
+    void updateImage(String image, String userName);
 
 }

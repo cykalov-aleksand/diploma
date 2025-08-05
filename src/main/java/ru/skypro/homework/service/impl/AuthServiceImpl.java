@@ -1,5 +1,7 @@
 package ru.skypro.homework.service.impl;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,7 +35,7 @@ if(userRepository.availabilityInDatabase(userName,password)==0){
     userRepository.saveUserPassword(userName,password);
 }
         UserDetails userDetails = manager.loadUserByUsername(userName);
-        usernameAuthorised=userName;
+        //usernameAuthorised=userName;
         return encoder.matches(password, userDetails.getPassword());
     }
 
@@ -53,6 +55,13 @@ if(userRepository.availabilityInDatabase(userName,password)==0){
         userRepository.saveRule(register.getPassword(),register.getFirstName(), register.getLastName(), register.getPhone(), register.getRole().name());
                return true;
     }
-public String usernameAuthorised;
+public String usernameAuthorised() {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    if (authentication != null) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        return userDetails.getUsername();
+    }
+    return null;
+    }
 
 }
