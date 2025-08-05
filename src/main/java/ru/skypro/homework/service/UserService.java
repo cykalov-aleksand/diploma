@@ -6,15 +6,12 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.NewPassword;
 import ru.skypro.homework.dto.UpdateUser;
 import ru.skypro.homework.dto.User;
-import ru.skypro.homework.exception.ForbiddenException;
 import ru.skypro.homework.model.UserModel;
 import ru.skypro.homework.repository.UserRepository;
 import ru.skypro.homework.service.impl.AuthServiceImpl;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService{
@@ -40,11 +37,14 @@ userRepository.updatePassword(newPassword.getNewPassword(), Objects.requireNonNu
         UserModel usernameAuthorised =userRepository.InformationAboutUser(authService.usernameAuthorised);
 
         return new User(usernameAuthorised.getId(),usernameAuthorised.getEmail(), usernameAuthorised.getFirstName(),
-                usernameAuthorised.getLastName(), usernameAuthorised.getPhone(), usernameAuthorised.getImage(),usernameAuthorised.getRole() );
+                usernameAuthorised.getLastName(), usernameAuthorised.getPhone(), usernameAuthorised.getImage(),
+                usernameAuthorised.getRole() );
     }
 
 
     public UpdateUser updatingUserInformation(UpdateUser updateUser) {
+       userRepository.updatingUserInformationAuthorised(updateUser.getFirstName(), updateUser.getLastName(),
+        updateUser.getPhone(), authService.usernameAuthorised);
         return null;
     }
 
