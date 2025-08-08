@@ -1,6 +1,7 @@
 package ru.skypro.homework.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -10,8 +11,10 @@ public class CommentModel {
     @Id
     @GeneratedValue
     private Integer pk;
-    @Column(nullable = false, name = "author_id")
-private int authorId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id")
+    private AdModel adModel;
+//private int authorId;
     @Column(nullable = false, name = "created_at")
 private long createdAt;
 private String text;
@@ -35,15 +38,6 @@ public CommentModel(){}
     public void setPk(Integer pk) {
         this.pk = pk;
     }
-
-    public int getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(int authorId) {
-        this.authorId = authorId;
-    }
-
     public long getCreatedAt() {
         return createdAt;
     }
@@ -60,11 +54,19 @@ public CommentModel(){}
         this.text = text;
     }
 
+    public AdModel getAdModel() {
+        return adModel;
+    }
+@JsonIgnore
+    public void setAdModel(AdModel adModel) {
+        this.adModel = adModel;
+    }
+
     @Override
     public String toString() {
         return "CommentModel{" +
                 "pk=" + pk +
-                ", authorId=" + authorId +
+                ", adModel=" + adModel +
                 ", createdAt=" + createdAt +
                 ", text='" + text + '\'' +
                 '}';

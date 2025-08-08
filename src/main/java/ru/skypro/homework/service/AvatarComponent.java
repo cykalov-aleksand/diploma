@@ -5,7 +5,6 @@ import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
-import ru.skypro.homework.model.UserModel;
 import ru.skypro.homework.repository.UserRepository;
 
 
@@ -28,9 +27,9 @@ public class AvatarComponent {
         this.userRepository = userRepository;
     }
 
-    @Value("${cover.dir.path}")
-    private String coversDir;
-    public Path saveAvatar(String userName,String saveNameAvatar,MultipartFile image) throws IOException {
+   // @Value("${cover.dir.path}")
+    //private String coversDir;
+    public Path saveAvatar(String coversDir,String userName,String saveNameAvatar,MultipartFile image) throws IOException {
          Path filePath = Path.of(coversDir, saveNameAvatar + "." + getExtension(Objects.requireNonNull(image.getOriginalFilename())));
         Files.createDirectories(filePath.getParent());
         Files.deleteIfExists(filePath);
@@ -60,6 +59,9 @@ public class AvatarComponent {
             ImageIO.write(preview, getExtension(filepath.getFileName().toString()), baos);
             return baos.toByteArray();
         }
+    }
+    public void delete(String filepath) throws IOException {
+        Files.deleteIfExists(Path.of(filepath));
     }
 }
 

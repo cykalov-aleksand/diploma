@@ -1,8 +1,10 @@
 package ru.skypro.homework.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -11,13 +13,17 @@ public class AdModel {
     @Id
     @GeneratedValue
     private Integer pk;
-    @Column(nullable = false, name = "author_id")
-    private int authorId;
-    @Column(nullable = false, name = "image_id")
-    private String imageId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author")
+    private UserModel userModel;
+    //private int authorId;
+    @Column(nullable = false, name = "image")
+    private String image;
     private String title;
     private int price;
     private String description;
+    @OneToMany(mappedBy = "adModel")
+    private List<CommentModel>commentModels;
     public AdModel(){}
 
     @Override
@@ -39,21 +45,12 @@ public class AdModel {
     public void setPk(Integer pk) {
         this.pk = pk;
     }
-
-    public int getAuthorId() {
-        return authorId;
+    public String getImage() {
+        return image;
     }
 
-    public void setAuthorId(int authorId) {
-        this.authorId = authorId;
-    }
-
-    public String getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(String imageId) {
-        this.imageId = imageId;
+    public void setImage(String imageId) {
+        this.image = imageId;
     }
 
     public String getTitle() {
@@ -80,12 +77,20 @@ public class AdModel {
         this.description = description;
     }
 
+    public UserModel getUserModel() {
+        return userModel;
+    }
+@JsonIgnore
+    public void setUserModel(UserModel userModel) {
+        this.userModel = userModel;
+    }
+
     @Override
     public String toString() {
         return "AdModel{" +
                 "pk=" + pk +
-                ", authorId=" + authorId +
-                ", imageAd='" + imageId + '\'' +
+                ", userModel=" + userModel +
+                ", imageId='" + image + '\'' +
                 ", title='" + title + '\'' +
                 ", price=" + price +
                 ", description='" + description + '\'' +

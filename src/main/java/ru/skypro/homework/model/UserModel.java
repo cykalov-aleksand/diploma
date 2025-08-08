@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.skypro.homework.dto.Role;
 
+import java.util.List;
 import java.util.Objects;
 
 @Setter
@@ -27,6 +28,8 @@ public class UserModel {
     private String image;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @OneToMany(mappedBy = "userModel")
+    private List<AdModel>adModels;
     public UserModel(){}
 
 

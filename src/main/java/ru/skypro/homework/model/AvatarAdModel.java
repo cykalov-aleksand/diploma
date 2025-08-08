@@ -20,7 +20,7 @@ public class AvatarAdModel {
     @Column( name = "data")
     private byte[] data;
     @OneToOne
-    @JoinColumn(name = "ad_id")
+    @JoinColumn(name = "ad_pk")
      private AdModel adModel;
 public AvatarAdModel(){}
 

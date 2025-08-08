@@ -15,8 +15,8 @@ CREATE TABLE user_model(
     -- changeset acycalov:2
     CREATE TABLE ad_model(
         pk SERIAL PRIMARY KEY,
-        author_id SERIAL REFERENCES user_model(id) ON DELETE CASCADE,
-        image_id TEXT,
+        author SERIAL REFERENCES user_model(id) ON DELETE CASCADE,
+        image TEXT,
         title TEXT,
         price INTEGER,
         description TEXT);
@@ -40,7 +40,7 @@ CREATE TABLE user_model(
 -- changeset acycalov:5
     CREATE TABLE avatar_ad(
         id SERIAL PRIMARY KEY,
-        ad_id SERIAL REFERENCES ad_model(pk) ON DELETE CASCADE,
+        ad_pk SERIAL REFERENCES ad_model(pk) ON DELETE CASCADE,
         file_patch TEXT,
         media_type TEXT,
         file_size INTEGER,

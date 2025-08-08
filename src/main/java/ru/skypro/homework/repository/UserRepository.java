@@ -61,5 +61,10 @@ public interface UserRepository extends JpaRepository<UserModel,Integer> {
     @Modifying
     @Query(value = "UPDATE user_model SET image=?1 WHERE user_name=?2", nativeQuery = true)
     void updateImage(String image, String userName);
+    /**
+     * Создаем SQL запрос для поиска автора по указанному id
+     */
+    @Query(value = "SELECT * FROM user_model WHERE id= ?1", nativeQuery = true)
+    UserModel userModelFindId(int id);
 
 }

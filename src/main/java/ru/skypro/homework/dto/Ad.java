@@ -15,5 +15,12 @@ public class Ad {
  private    String title;
  @Schema(description = "цена объявления")
  private int price;
-
+public Ad(){}
+ public Ad(int author, String image, int pk, String title, int price) {
+  this.author = author;
+  this.image = image;
+  this.pk = pk;
+  this.title = title;
+  this.price = price;
+ }
 }

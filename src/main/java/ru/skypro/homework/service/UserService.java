@@ -1,8 +1,5 @@
 package ru.skypro.homework.service;
 
-import jakarta.transaction.Transactional;
-import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,16 +12,11 @@ import ru.skypro.homework.repository.AvatarUserRepository;
 import ru.skypro.homework.repository.UserRepository;
 import ru.skypro.homework.service.impl.AuthServiceImpl;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
+
 import java.io.*;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
 
-import static java.nio.file.StandardOpenOption.CREATE_NEW;
-@Transactional
 @Service
 public class UserService {
     private final UserRepository userRepository;
@@ -39,10 +31,7 @@ public class UserService {
         this.avatarComponent = avatarComponent;
     }
 
-    @Value("${cover.dir.path}")
-    private String coversDir;
-
-    public ResponseEntity<Void> passwordUpdates(NewPassword newPassword) {
+     public ResponseEntity<Void> passwordUpdates(NewPassword newPassword) {
         UserModel user = userRepository.findIdPassword(newPassword.getCurrentPassword().trim());
         if (user == null) {
             return ResponseEntity.status(403).build();
@@ -74,7 +63,7 @@ public class UserService {
         }
 
         UserModel userModel = userRepository.informationAboutUser(authService.usernameAuthorised());
-        Path filePath=avatarComponent.saveAvatar(authService.usernameAuthorised(),userModel.getId().toString(),image);
+        Path filePath=avatarComponent.saveAvatar("avatar/user",authService.usernameAuthorised(),userModel.getId().toString(),image);
        Integer avatarUserModel=avatarUserRepository.findUserAvatar(userModel.getId());
          if(avatarUserModel!=null){
              avatarUserRepository.deleteLine(userModel.getId());
