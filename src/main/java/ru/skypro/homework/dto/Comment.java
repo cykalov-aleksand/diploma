@@ -17,4 +17,12 @@ public class Comment {
   private   int pk;
   @Schema(description = "текст комментария")
   private   String text;
+    public Comment(int author, String authorImage, String authorFirstName, long createdAt, int pk, String text) {
+    this.author = author;
+    this.authorImage = authorImage;
+    this.authorFirstName = authorFirstName;
+    this.createdAt = createdAt;
+    this.pk = pk;
+    this.text = text;
+  }
 }

@@ -66,5 +66,9 @@ public interface UserRepository extends JpaRepository<UserModel,Integer> {
      */
     @Query(value = "SELECT * FROM user_model WHERE id= ?1", nativeQuery = true)
     UserModel userModelFindId(int id);
-
+    /**
+     * Создаем SQL запрос для поиска модели по указанному id
+     */
+    @Query(value = "SELECT * FROM user_model WHERE id= ?1", nativeQuery = true)
+    UserModel userModel(int id);
 }

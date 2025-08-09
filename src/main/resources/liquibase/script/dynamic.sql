@@ -24,8 +24,8 @@ CREATE TABLE user_model(
 -- changeset acycalov:3
     CREATE TABLE comment_model(
         pk SERIAL PRIMARY KEY,
-        author_id SERIAL REFERENCES ad_model(pk) ON DELETE CASCADE,
-        create_at INTEGER,
+        ad_pk SERIAL REFERENCES ad_model(pk) ON DELETE CASCADE,
+        created_at BIGINT,
         text TEXT);
 
 -- changeset acycalov:4
