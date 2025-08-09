@@ -12,7 +12,6 @@ import ru.skypro.homework.repository.AdRepository;
 import ru.skypro.homework.repository.CommentRepository;
 import ru.skypro.homework.repository.UserRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.System.currentTimeMillis;
@@ -31,6 +30,8 @@ public class CommentService {
 
 
     public Comments getCommentsOnAd(int id) {
+
+
         return null;
     }
 
@@ -48,36 +49,31 @@ public class CommentService {
     }
 
     public ResponseEntity<Void> deleteCommentToAdId(int adId, int commentId) {
-        List<Integer>listPkComment=new ArrayList<>();
-listPkComment=commentRepository.findPkToAdPk(adId);
-switch (listPkComment.size()){
-    case 0:
-        return ResponseEntity.status(404).build();
-    case 1:
-        return ResponseEntity.status(403).build();
-    default:
+        if (commentRepository.commentModel(commentId) == null) {
+            return ResponseEntity.status(404).build();
+        }
+        if (commentRepository.findPkToAdPk(adId) == null) {
+            return ResponseEntity.status(403).build();
+        }
         commentRepository.deleteLine(commentId);
-    return ResponseEntity.ok().build();
-}
+        return ResponseEntity.ok().build();
     }
 
     public ResponseEntity<Comment> updatingComment(int adId, int commentId, CreateOrUpdateComment createOrUpdateComment) {
-        List<Integer>listPkComment=new ArrayList<>();
-        listPkComment=commentRepository.findPkToAdPk(adId);
-        switch (listPkComment.size()){
-            case 0:
-                return ResponseEntity.status(404).build();
-          //  case 1:
-          //      return ResponseEntity.status(403).build();
-            default:
-                commentRepository.updatingCommentPk(createOrUpdateComment.getText(),adId);
+        List<Integer> listPkComment = commentRepository.findPkToAdPk(adId);
+        if (commentRepository.commentModel(commentId) == null) {
+            return ResponseEntity.status(404).build();
+        }
+        if (commentRepository.findPkToAdPk(adId) == null) {
+            return ResponseEntity.status(403).build();
+        }
+               commentRepository.updatingCommentPk(createOrUpdateComment.getText(), adId);
                 int author = adRepository.findAuthorToPk(adId);
                 UserModel userModel = userRepository.userModel(author);
-                CommentModel commentModel=commentRepository.commentModel(commentId);
+                CommentModel commentModel = commentRepository.commentModel(commentId);
 
                 return ResponseEntity.ok(new Comment(author, userModel.getImage(), userModel.getFirstName(), commentModel.getCreatedAt(),
                         commentModel.getPk(), commentModel.getText()));
 
         }
     }
-}
