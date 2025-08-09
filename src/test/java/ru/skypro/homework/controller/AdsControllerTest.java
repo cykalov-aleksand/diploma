@@ -18,10 +18,8 @@ import ru.skypro.homework.dto.Ads;
 import ru.skypro.homework.dto.ExtendedAd;
 import ru.skypro.homework.service.AdService;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -31,6 +29,7 @@ public class AdsControllerTest {
     private MockMvc mockMvc;
     @MockBean
     private AdService adService;
+    private UsersController adsUser;
 
     @Test
     @WithMockUser
@@ -56,7 +55,6 @@ public class AdsControllerTest {
     @Test
     @WithMockUser
     public void getAdsFromAuthorizedTest() throws Exception {
-        Ads user = new Ads();
         when(adService.getAdsFromAuthorized()).thenReturn(user);
         mockMvc.perform(MockMvcRequestBuilders.get("/ads/me")
                         .accept(MediaType.APPLICATION_JSON))
@@ -66,7 +64,6 @@ public class AdsControllerTest {
 
     @Test
     public void getAdsFromNoAuthorizedTest() throws Exception {
-        Ads user = new Ads();
         when(adService.getAdsFromAuthorized()).thenReturn(user);
         mockMvc.perform(MockMvcRequestBuilders.get("/ads/me")
                         .accept(MediaType.APPLICATION_JSON))
