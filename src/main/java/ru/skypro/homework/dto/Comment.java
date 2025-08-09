@@ -17,6 +17,7 @@ public class Comment {
   private   int pk;
   @Schema(description = "текст комментария")
   private   String text;
+  public Comment(){}
     public Comment(int author, String authorImage, String authorFirstName, long createdAt, int pk, String text) {
     this.author = author;
     this.authorImage = authorImage;
