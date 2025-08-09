@@ -63,7 +63,7 @@ public class UserService {
         }
 
         UserModel userModel = userRepository.informationAboutUser(authService.usernameAuthorised());
-        Path filePath=avatarComponent.saveAvatar("avatar/user",authService.usernameAuthorised(),userModel.getId().toString(),image);
+        Path filePath=avatarComponent.saveAvatar("avatar/user",userModel.getId().toString(),image);
        Integer avatarUserModel=avatarUserRepository.findUserAvatar(userModel.getId());
          if(avatarUserModel!=null){
              avatarUserRepository.deleteLine(userModel.getId());

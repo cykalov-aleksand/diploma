@@ -87,7 +87,17 @@ public class AdService {
         return new Ads(adRepository.countAdListAuthor(userModel.getId()), ad);
     }
 
-    public ResponseEntity<String> UpdatingAdImage(int id, MultipartFile image) {
+    public ResponseEntity<String> UpdatingAdImage(int id, MultipartFile image) throws IOException {
+        AdModel adModel= adRepository.findPkObject(id);
+        String name=adModel.getImage().replace("avatar/ad","").trim();
+      Path filePath = avatarComponent.saveAvatar("avatar/ad", name.substring(0,name.indexOf(".")), image);
+      adRepository.updateImage(filePath.toString(), adModel.getPk());
+        AvatarAdModel avatar = new AvatarAdModel();
+        avatar.setFilePath(filePath.toString());
+        avatar.setFileSize(image.getSize());
+        avatar.setMediaType(image.getContentType());
+        avatar.setData(avatarComponent.generateImagePreview(filePath));
+avatarAdRepository.updateAvatar(avatar.getFilePath(),avatar.getMediaType(),avatar.getFileSize(), avatar.getData(), id);
         return ResponseEntity.status(200).build();
     }
 
@@ -100,8 +110,7 @@ public class AdService {
         advertisementAd.setTitle(createOrUpdateAd.getTitle());
         advertisementAd.setPrice(createOrUpdateAd.getPrice());
         advertisementAd.setDescription(createOrUpdateAd.getDescription());
-        Path filePath = avatarComponent.saveAvatar("avatar/ad", authService.usernameAuthorised(),
-                advertisementAd.getTitle() +
+        Path filePath = avatarComponent.saveAvatar("avatar/ad",advertisementAd.getTitle() +
                         " (avatar N " + (avatarAdRepository.countAvatar() + 1) + ")", image);
         AvatarAdModel avatar = new AvatarAdModel();
         avatar.setFilePath(filePath.toString());

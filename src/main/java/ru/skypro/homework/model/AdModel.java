@@ -1,8 +1,9 @@
 package ru.skypro.homework.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.Objects;
@@ -10,17 +11,28 @@ import java.util.Objects;
 @Entity
 @Table(name = "ad_model")
 public class AdModel {
+    @Setter
+    @Getter
     @Id
     @GeneratedValue
     private Integer pk;
+    @Getter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author")
     private UserModel userModel;
     //private int authorId;
+    @Setter
+    @Getter
     @Column(nullable = false, name = "image")
     private String image;
+    @Setter
+    @Getter
     private String title;
+    @Setter
+    @Getter
     private int price;
+    @Setter
+    @Getter
     private String description;
     @OneToMany(mappedBy = "adModel")
     private List<CommentModel>commentModels;
@@ -38,49 +50,7 @@ public class AdModel {
         return Objects.hashCode(pk);
     }
 
-    public Integer getPk() {
-        return pk;
-    }
-
-    public void setPk(Integer pk) {
-        this.pk = pk;
-    }
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String imageId) {
-        this.image = imageId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public UserModel getUserModel() {
-        return userModel;
-    }
-@JsonIgnore
+    @JsonIgnore
     public void setUserModel(UserModel userModel) {
         this.userModel = userModel;
     }

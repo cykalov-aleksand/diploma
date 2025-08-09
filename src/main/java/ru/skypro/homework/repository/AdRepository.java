@@ -11,16 +11,28 @@ import java.util.List;
 
 @Repository
 public interface AdRepository extends JpaRepository<AdModel,Integer> {
+    /**
+     * Создаем SQL запрос для записи новой строки с данными в указанных колонках
+     **/
     @Transactional
     @Modifying
     @Query(value = "INSERT INTO ad_model (author,title,description,price)VALUES (?1,?2,?3,?4)", nativeQuery = true)
     void saveAd(int id,String title,String description,int price);
+    /**
+     * Создаем SQL запрос для поиска строки с указанными title, description,price
+     **/
     @Query(value = "SELECT pk FROM ad_model WHERE author= ?1 AND title= ?2 AND description= ?3 AND price= ?4", nativeQuery = true)
     int findPk(int id,String title, String description, int price);
+    /**
+     * Создаем SQL запрос для перезаписи содержимого ячейки image
+     **/
     @Transactional
     @Modifying
     @Query(value = "UPDATE ad_model SET image=?1 WHERE pk=?2", nativeQuery = true)
     void updateImage(String image, int pk);
+    /**
+     * Создаем SQL запрос для вывода модели по указанному pk
+     */
     @Query(value = "SELECT * FROM ad_model WHERE pk= ?1", nativeQuery = true)
         AdModel findPkObject(int pk);
     /**

@@ -3,11 +3,15 @@ package ru.skypro.homework.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Objects;
+@Getter
 @Table(name = "comment_model")
 @Entity
 public class CommentModel {
+    @Setter
     @Id
     @GeneratedValue
     private Integer pk;
@@ -15,8 +19,10 @@ public class CommentModel {
     @JoinColumn(name = "author_id")
     private AdModel adModel;
 //private int authorId;
+    @Setter
     @Column(nullable = false, name = "created_at")
 private long createdAt;
+@Setter
 private String text;
 public CommentModel(){}
     @Override
@@ -31,33 +37,7 @@ public CommentModel(){}
         return Objects.hashCode(pk);
     }
 
-    public Integer getPk() {
-        return pk;
-    }
-
-    public void setPk(Integer pk) {
-        this.pk = pk;
-    }
-    public long getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(long createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public AdModel getAdModel() {
-        return adModel;
-    }
-@JsonIgnore
+    @JsonIgnore
     public void setAdModel(AdModel adModel) {
         this.adModel = adModel;
     }

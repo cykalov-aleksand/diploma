@@ -79,6 +79,7 @@ public class AdsController {
             @ApiResponse(responseCode = "Not fount", description = "404", content = {@Content(schema = @Schema())})
     })
     public Ad updatingInformationAboutAd(@RequestParam("id") int id, @RequestBody CreateOrUpdateAd createOrUpdateAd) {
+
         return adService.updatingInformationAboutAd(id, createOrUpdateAd);
     }
 
@@ -119,6 +120,6 @@ public class AdsController {
        public ResponseEntity<Ad> addingAd(@RequestPart("parameters") CreateOrUpdateAd parameters,
                                           @RequestParam("image") MultipartFile image) throws IOException {
                 return adService.addingAd(parameters, image);
-       // return ResponseEntity.status(200).body(parameters);
+
     }
 }

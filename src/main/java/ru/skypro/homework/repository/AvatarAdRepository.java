@@ -12,8 +12,6 @@ public interface AvatarAdRepository extends JpaRepository<AvatarAdModel,Integer>
     @Modifying
     @Query(value = "INSERT INTO avatar_ad (ad_pk,file_patch,file_size,media_type,data)VALUES (?1,?2,?3,?4,?5)", nativeQuery = true)
     void save(int ad_pk,String filePath, long fileSize,String mediaType, byte[] data);
-   // @Query(value = "SELECT id FROM avatar_ad WHERE ad_pk= ?1", nativeQuery = true)
-   // int idAvatarAd(int ad_pk);
     /**
      * Создаем SQL запрос для удаления строки из таблицы avatar_ad с указанным file_patch
      */
@@ -26,5 +24,12 @@ public interface AvatarAdRepository extends JpaRepository<AvatarAdModel,Integer>
      */
     @Query(value = "SELECT count(*) FROM avatar_ad", nativeQuery = true)
     int countAvatar();
+    /**
+     * Создаем SQL запрос для перезаписи содержимого ячеек по указанному pk_id
+     **/
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE avatar_ad SET file_patch=?1, media_type=?2, file_size=?3, data=?4 WHERE ad_pk=?5", nativeQuery = true)
+    void updateAvatar(String filePatch,String mediaType,long fileSize,byte[] data, int ad_Pk);
 
 }
