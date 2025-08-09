@@ -20,4 +20,14 @@ public class User {
     private String image;
     @Schema(description = "роль пользователя")
     private Role role;
+
+    public User(int id, String email, String firstName, String lastName, String phone, String image, Role role) {
+        this.id = id;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phone = phone;
+        this.image = image;
+        this.role = role;
+    }
 }

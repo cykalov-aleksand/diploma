@@ -23,10 +23,14 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/ads")
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @Tag(name = "Объявления")
 public class AdsController {
     private final AdService adService;
+
+    public AdsController(AdService adService) {
+        this.adService = adService;
+    }
 
     @Tag(name = "Объявления")
     @GetMapping()
@@ -60,7 +64,7 @@ public class AdsController {
             @ApiResponse(description = "Forbidden", responseCode = "403", content = {@Content(schema = @Schema())}),
             @ApiResponse(description = "Not fount", responseCode = "404", content = {@Content(schema = @Schema())})
     })
-    public ResponseEntity<Void> deleteAd(@RequestParam("ID продукта") int id) {
+    public ResponseEntity<Void> deleteAd(@RequestParam("ID продукта") int id) throws IOException {
         return adService.deleteAd(id);
     }
 
@@ -75,6 +79,7 @@ public class AdsController {
             @ApiResponse(responseCode = "Not fount", description = "404", content = {@Content(schema = @Schema())})
     })
     public Ad updatingInformationAboutAd(@RequestParam("id") int id, @RequestBody CreateOrUpdateAd createOrUpdateAd) {
+
         return adService.updatingInformationAboutAd(id, createOrUpdateAd);
     }
 
@@ -105,14 +110,16 @@ public class AdsController {
     }
 
     @Tag(name = "Объявления")
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(params = "parameters", consumes ={MediaType.MULTIPART_FORM_DATA_VALUE})
     @Operation(summary = "Добавление объявления")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "Created", description = "201", content =
-                    {@Content(schema = @Schema(implementation = Ad.class), mediaType = "application/json")}),
-            @ApiResponse(responseCode = "Unauthorized", description = "401", content = {@Content(schema = @Schema())})
+   @ApiResponses(value = {
+           @ApiResponse(responseCode = "Created", description = "201",
+                  content ={@Content(schema = @Schema(implementation = Ad.class), mediaType = "application/json")}),
+           @ApiResponse(responseCode = "Unauthorized", description = "401", content = {@Content(schema = @Schema())})
     })
-       public Ad addingAd(@RequestBody CreateOrUpdateAd createOrUpdateAd, @RequestParam MultipartFile image) throws IOException {
-        return adService.addingAd(createOrUpdateAd, image);
+       public ResponseEntity<Ad> addingAd(@RequestPart("parameters") CreateOrUpdateAd parameters,
+                                          @RequestParam("image") MultipartFile image) throws IOException {
+                return adService.addingAd(parameters, image);
+
     }
 }
