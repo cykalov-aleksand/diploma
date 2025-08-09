@@ -16,7 +16,7 @@ public class CommentModel {
     @GeneratedValue
     private Integer pk;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "author_id")
+    @JoinColumn(name = "ad_pk")
     private AdModel adModel;
 //private int authorId;
     @Setter
