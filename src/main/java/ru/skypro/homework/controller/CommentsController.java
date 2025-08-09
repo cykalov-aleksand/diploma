@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.skypro.homework.dto.CreateOrUpdateComment;
 import ru.skypro.homework.dto.Comment;
@@ -41,7 +42,7 @@ public class CommentsController {
             @ApiResponse( description = "Unauthorized", responseCode = "401",content = { @Content(schema = @Schema()) }),
             @ApiResponse( description = "Not fount", responseCode ="404",content = { @Content(schema = @Schema()) })
     })
-    public Comment addCommentToAd(@RequestParam("ID продукта")int id, @RequestBody String text) {
+    public ResponseEntity<Comment> addCommentToAd(@RequestParam("ID продукта")int id, @RequestBody String text) {
         return commentService.addCommentToAd(id,text);
     }
      @Tag(name = "Комментарии")
@@ -53,7 +54,7 @@ public class CommentsController {
             @ApiResponse( description = "Forbidden", responseCode = "403",content = { @Content(schema = @Schema()) }),
             @ApiResponse( description = "Not fount", responseCode ="404",content = { @Content(schema = @Schema()) })
     })
-    public Void deleteCommentToAdId(@RequestParam("ID продукта")int adId,int commentId) {
+    public ResponseEntity<Void> deleteCommentToAdId(@RequestParam("ID продукта")int adId,int commentId) {
         return commentService.deleteCommentToAdId(adId,commentId);
     }
     @Tag(name = "Комментарии")
@@ -66,7 +67,7 @@ public class CommentsController {
             @ApiResponse( description = "Forbidden", responseCode = "403",content = { @Content(schema = @Schema()) }),
             @ApiResponse( description = "Not fount", responseCode ="404",content = { @Content(schema = @Schema()) })
     })
-    public Comment updatingComment(@RequestParam("adId")int adId,@RequestParam("commentId")int commentId,
+    public ResponseEntity<Comment> updatingComment(@RequestParam("adId")int adId,@RequestParam("commentId")int commentId,
                                    @RequestBody CreateOrUpdateComment createOrUpdateComment) {
         return commentService.updatingComment(adId,commentId,createOrUpdateComment);
     }

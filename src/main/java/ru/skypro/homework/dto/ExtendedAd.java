@@ -23,8 +23,9 @@ public class ExtendedAd {
     private int price;
     @Schema(description = "заголовок объявления")
     private String title;
-public ExtendedAd(){};
-    public ExtendedAd(int pk, String authorFirstName, String authorLastName, String description, String email, String image, String phone, int price, String title) {
+    public ExtendedAd(){}
+    public ExtendedAd(int pk, String authorFirstName, String authorLastName, String description, String email,
+                      String image, String phone, int price, String title) {
         this.pk = pk;
         this.authorFirstName = authorFirstName;
         this.authorLastName = authorLastName;
@@ -35,4 +36,4 @@ public ExtendedAd(){};
         this.price = price;
         this.title = title;
     }
-}
+  }
