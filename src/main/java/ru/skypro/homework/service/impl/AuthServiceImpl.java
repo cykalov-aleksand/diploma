@@ -59,6 +59,7 @@ public String usernameAuthorised() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     if (authentication != null) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        System.err.println(userDetails.getUsername().toString());
         return userDetails.getUsername();
     }
     return null;

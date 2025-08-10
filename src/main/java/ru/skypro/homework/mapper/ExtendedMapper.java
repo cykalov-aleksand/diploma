@@ -7,7 +7,7 @@ import ru.skypro.homework.dto.ExtendedAd;
 import ru.skypro.homework.model.UserModel;
 
 @Component
-@Mapper
+@Mapper(componentModel = "spring")
 public interface ExtendedMapper {
     ExtendedMapper INSTANCE = Mappers.getMapper(ExtendedMapper.class);
     UserModel toDto(ExtendedAd extendedAd );

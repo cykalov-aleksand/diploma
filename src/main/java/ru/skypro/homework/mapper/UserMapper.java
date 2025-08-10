@@ -11,8 +11,10 @@ import ru.skypro.homework.model.UserModel;
 @Component
 public interface UserMapper {
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
-    @Mapping(target = "userName", ignore = true)
-    @Mapping(target = "password", ignore = true)
+    //@Mapping(target = "userName", ignore = true)
+    //@Mapping(target = "password", ignore = true)
     UserModel toDto(User user );
+    //@Mapping(target = "userName", ignore = true)
+    //@Mapping(target = "password", ignore = true)
     User toModel(UserModel userModel);
 }

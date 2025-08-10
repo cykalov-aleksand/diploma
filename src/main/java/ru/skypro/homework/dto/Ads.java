@@ -15,4 +15,20 @@ public Ads(){}
         this.count = count;
         this.results = results;
     }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public List<Ad> getResults() {
+        return results;
+    }
+
+    public void setResults(List<Ad> results) {
+        this.results = results;
+    }
 }

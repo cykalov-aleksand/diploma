@@ -50,7 +50,6 @@ public class UserService {
 
     public User getInformationAboutUser() {
         UserModel usernameAuthorised = userRepository.informationAboutUser(authService.usernameAuthorised());
-        System.err.println(usernameAuthorised);
         return userMapper.toModel(usernameAuthorised);
     }
 
@@ -66,7 +65,6 @@ public class UserService {
         if (image.getSize() >= 1024 * 300) {
             return ResponseEntity.status(403).build();
         }
-
         UserModel userModel = userRepository.informationAboutUser(authService.usernameAuthorised());
         Path filePath=avatarComponent.saveAvatar("avatar/user",userModel.getId().toString(),image);
        Integer avatarUserModel=avatarUserRepository.findUserAvatar(userModel.getId());

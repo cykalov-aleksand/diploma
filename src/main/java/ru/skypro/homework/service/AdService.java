@@ -9,6 +9,8 @@ import ru.skypro.homework.dto.Ads;
 import ru.skypro.homework.dto.CreateOrUpdateAd;
 import ru.skypro.homework.dto.ExtendedAd;
 import ru.skypro.homework.mapper.CommentMapper;
+import ru.skypro.homework.mapper.CreateOrUpdateAdMapper;
+import ru.skypro.homework.mapper.ExtendedMapper;
 import ru.skypro.homework.model.AdModel;
 import ru.skypro.homework.model.AvatarAdModel;
 import ru.skypro.homework.model.UserModel;
@@ -40,10 +42,10 @@ public class AdService {
         this.avatarAdRepository = avatarAdRepository;
         this.avatarComponent = avatarComponent;
     }
-   // @Autowired
-   // private CreateOrUpdateAdMapper createOrUpdateAdMapper;
-  //  @Autowired
-  //  private ExtendedMapper extendedMapper;
+   @Autowired
+    private CreateOrUpdateAdMapper createOrUpdateAdMapper;
+    @Autowired
+    private ExtendedMapper extendedMapper;
 
     public Ads getAllService() {
         List<AdModel> adList = adRepository.findAll();
@@ -60,10 +62,10 @@ public class AdService {
     public ExtendedAd getInformationAboutAd(int id) {
         AdModel adModel = adRepository.getInformationAboutAdModel(id);
         UserModel userModel = userRepository.userModelFindId(adRepository.author(id));
-       // return extendedMapper.toModel(userModel);
-        return new ExtendedAd(adModel.getPk(), userModel.getFirstName(), userModel.getLastName(),
-                adModel.getDescription(), userModel.getEmail(), adModel.getImage(), userModel.getPhone(),
-                adModel.getPrice(), adModel.getTitle());
+        return extendedMapper.toModel(userModel);
+       // return new ExtendedAd(adModel.getPk(), userModel.getFirstName(), userModel.getLastName(),
+       //         adModel.getDescription(), userModel.getEmail(), adModel.getImage(), userModel.getPhone(),
+       //         adModel.getPrice(), adModel.getTitle());
 
     }
 

@@ -7,7 +7,7 @@ import ru.skypro.homework.dto.CreateOrUpdateAd;
 import ru.skypro.homework.model.AdModel;
 
 @Component
-@Mapper
+@Mapper(componentModel = "spring")
 public interface CreateOrUpdateAdMapper {
     CreateOrUpdateAdMapper INSTANCE = Mappers.getMapper(CreateOrUpdateAdMapper.class);
   //  @Mapping(target = "pk", ignore = true)
