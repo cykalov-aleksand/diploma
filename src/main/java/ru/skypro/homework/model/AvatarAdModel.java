@@ -28,10 +28,59 @@ public class AvatarAdModel {
      private AdModel adModel;
 public AvatarAdModel(){}
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public String getMediaType() {
+        return mediaType;
+    }
+
+    public void setMediaType(String mediaType) {
+        this.mediaType = mediaType;
+    }
+
+    public long getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(long fileSize) {
+        this.fileSize = fileSize;
+    }
+
+    public byte[] getData() {
+        return data;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
+    }
+
+    public AdModel getAdModel() {
+        return adModel;
+    }
+
+    public void setAdModel(AdModel adModel) {
+        this.adModel = adModel;
+    }
+
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
-        if (!(object instanceof AvatarAdModel that)) return false;
+        if (!(object instanceof AvatarAdModel)) return false;
+        AvatarAdModel that = (AvatarAdModel) object;
         return Objects.equals(id, that.id);
     }
 

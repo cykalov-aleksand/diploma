@@ -9,4 +9,9 @@ public class Comments {
     @Schema(description = "общее количество комментариев")
     private int count;
     private List<Comment>results;
+
+    public Comments(int count, List<Comment> results) {
+        this.count = count;
+        this.results = results;
+    }
 }

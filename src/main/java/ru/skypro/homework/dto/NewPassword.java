@@ -11,4 +11,20 @@ public class NewPassword {
     private String currentPassword;
     @Schema(description = "новый пароль",minLength = 8,maxLength = 16)
     private String newPassword;
+
+    public String getCurrentPassword() {
+        return currentPassword;
+    }
+
+    public void setCurrentPassword(String currentPassword) {
+        this.currentPassword = currentPassword;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
 }

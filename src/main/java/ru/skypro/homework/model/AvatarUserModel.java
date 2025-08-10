@@ -29,10 +29,59 @@ public class AvatarUserModel {
        private UserModel userModel;
 public AvatarUserModel(){}
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public String getMediaType() {
+        return mediaType;
+    }
+
+    public void setMediaType(String mediaType) {
+        this.mediaType = mediaType;
+    }
+
+    public long getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(long fileSize) {
+        this.fileSize = fileSize;
+    }
+
+    public byte[] getData() {
+        return data;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
+    }
+
+    public UserModel getUserModel() {
+        return userModel;
+    }
+
+    public void setUserModel(UserModel userModel) {
+        this.userModel = userModel;
+    }
+
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
-        if (!(object instanceof AvatarUserModel that)) return false;
+        if (!(object instanceof AvatarUserModel)) return false;
+        AvatarUserModel that = (AvatarUserModel) object;
         return Objects.equals(id, that.id);
     }
 

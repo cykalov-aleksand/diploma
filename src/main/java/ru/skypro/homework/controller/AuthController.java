@@ -21,10 +21,15 @@ import ru.skypro.homework.service.AuthService;
 @Slf4j
 @CrossOrigin(value = "http://localhost:3000")
 @RestController
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class AuthController {
 
     private final AuthService authService;
+
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
+
     @Tag(name = "Авторизация")
     @Operation(summary = "Авторизация пользователя")
     @ApiResponses(value = {

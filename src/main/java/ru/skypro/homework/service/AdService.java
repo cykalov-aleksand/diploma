@@ -1,12 +1,14 @@
 package ru.skypro.homework.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import ru.skypro.homework.dto.CreateOrUpdateAd;
 import ru.skypro.homework.dto.Ad;
 import ru.skypro.homework.dto.Ads;
+import ru.skypro.homework.dto.CreateOrUpdateAd;
 import ru.skypro.homework.dto.ExtendedAd;
+import ru.skypro.homework.mapper.CommentMapper;
 import ru.skypro.homework.model.AdModel;
 import ru.skypro.homework.model.AvatarAdModel;
 import ru.skypro.homework.model.UserModel;
@@ -27,6 +29,8 @@ public class AdService {
     private final AuthServiceImpl authService;
     private final AvatarAdRepository avatarAdRepository;
     private final AvatarComponent avatarComponent;
+    @Autowired
+    private CommentMapper commentMapper;
 
     public AdService(AdRepository adRepository, UserRepository userRepository, AuthServiceImpl authService,
                      AvatarAdRepository avatarAdRepository, AvatarComponent avatarComponent) {
@@ -36,13 +40,18 @@ public class AdService {
         this.avatarAdRepository = avatarAdRepository;
         this.avatarComponent = avatarComponent;
     }
+   // @Autowired
+   // private CreateOrUpdateAdMapper createOrUpdateAdMapper;
+  //  @Autowired
+  //  private ExtendedMapper extendedMapper;
 
     public Ads getAllService() {
         List<AdModel> adList = adRepository.findAll();
         List<Ad> ad = new ArrayList<>();
         for (AdModel variable : adList) {
-            ad.add(new Ad(adRepository.author(variable.getPk()), variable.getImage(), variable.getPk(),
-                    variable.getTitle(), variable.getPrice()));
+            ad.add(commentMapper.toModel(variable));
+           // ad.add(new Ad(adRepository.author(variable.getPk()), variable.getImage(), variable.getPk(),
+             //       variable.getTitle(), variable.getPrice()));
         }
 
         return new Ads(adRepository.countAdList(), ad);
@@ -51,6 +60,7 @@ public class AdService {
     public ExtendedAd getInformationAboutAd(int id) {
         AdModel adModel = adRepository.getInformationAboutAdModel(id);
         UserModel userModel = userRepository.userModelFindId(adRepository.author(id));
+       // return extendedMapper.toModel(userModel);
         return new ExtendedAd(adModel.getPk(), userModel.getFirstName(), userModel.getLastName(),
                 adModel.getDescription(), userModel.getEmail(), adModel.getImage(), userModel.getPhone(),
                 adModel.getPrice(), adModel.getTitle());
@@ -69,8 +79,11 @@ public class AdService {
     }
 
     public Ad updatingInformationAboutAd(int id, CreateOrUpdateAd createOrUpdateAd) {
-        adRepository.updatingUserInformationAd(createOrUpdateAd.getTitle(), createOrUpdateAd.getDescription(),
-                createOrUpdateAd.getPrice(), id);
+       // AdModel revers=createOrUpdateAdMapper.toDto(createOrUpdateAd);
+        adRepository.updatingUserInformationAd(createOrUpdateAd.getTitle(),
+                createOrUpdateAd.getDescription(),
+                createOrUpdateAd.getPrice(),
+                id);
         AdModel adModelAbout = adRepository.getInformationAboutAdModel(id);
         return new Ad(adRepository.author(id), adModelAbout.getImage(), adModelAbout.getPk(),
                 adModelAbout.getTitle(), adModelAbout.getPrice());

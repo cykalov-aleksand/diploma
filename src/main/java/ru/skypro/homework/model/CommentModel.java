@@ -7,29 +7,59 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Objects;
+
 @Getter
+@Setter
 @Table(name = "comment_model")
 @Entity
 public class CommentModel {
-    @Setter
     @Id
     @GeneratedValue
     private Integer pk;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ad_pk")
     private AdModel adModel;
-//private int authorId;
-    @Setter
     @Column(nullable = false, name = "created_at")
-private long createdAt;
-@Setter
-private String text;
-public CommentModel(){}
+    private long createdAt;
+    private String text;
+
+    public CommentModel() {
+    }
+
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
-        if (!(object instanceof CommentModel that)) return false;
+        if (!(object instanceof CommentModel)) return false;
+        CommentModel that = (CommentModel) object;
         return Objects.equals(pk, that.pk);
+    }
+
+    public Integer getPk() {
+        return pk;
+    }
+
+    public void setPk(Integer pk) {
+        this.pk = pk;
+    }
+
+    public AdModel getAdModel() {
+        return adModel;
+    }
+
+    public long getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(long createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     @Override

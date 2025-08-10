@@ -1,11 +1,14 @@
 package ru.skypro.homework.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.NewPassword;
 import ru.skypro.homework.dto.UpdateUser;
 import ru.skypro.homework.dto.User;
+import ru.skypro.homework.mapper.UpdateUserMapper;
+import ru.skypro.homework.mapper.UserMapper;
 import ru.skypro.homework.model.AvatarUserModel;
 import ru.skypro.homework.model.UserModel;
 import ru.skypro.homework.repository.AvatarUserRepository;
@@ -30,6 +33,10 @@ public class UserService {
         this.avatarUserRepository = avatarUserRepository;
         this.avatarComponent = avatarComponent;
     }
+    @Autowired
+    private UserMapper userMapper;
+    @Autowired
+    private UpdateUserMapper updateUserMapper;
 
      public ResponseEntity<Void> passwordUpdates(NewPassword newPassword) {
         UserModel user = userRepository.findIdPassword(newPassword.getCurrentPassword().trim());
@@ -43,18 +50,16 @@ public class UserService {
 
     public User getInformationAboutUser() {
         UserModel usernameAuthorised = userRepository.informationAboutUser(authService.usernameAuthorised());
-
-        return new User(usernameAuthorised.getId(), usernameAuthorised.getEmail(), usernameAuthorised.getFirstName(),
-                usernameAuthorised.getLastName(), usernameAuthorised.getPhone(), usernameAuthorised.getImage(),
-                usernameAuthorised.getRole());
+        System.err.println(usernameAuthorised);
+        return userMapper.toModel(usernameAuthorised);
     }
 
 
     public UpdateUser updatingUserInformation(UpdateUser updateUser) {
         userRepository.updatingUserInformationAuthorised(updateUser.getFirstName(), updateUser.getLastName(),
                 updateUser.getPhone(), authService.usernameAuthorised());
-        return null;
-    }
+        return updateUserMapper.toModel(userRepository.informationAboutUser(authService.usernameAuthorised()));
+            }
 
 
     public ResponseEntity<Void> updatingUsersAvatar(MultipartFile image) throws IOException {
