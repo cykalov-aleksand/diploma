@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.skypro.homework.dto.UpdateUser;
 import ru.skypro.homework.dto.User;
 import ru.skypro.homework.service.UserService;
+import ru.skypro.homework.dto.Role;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -27,7 +28,7 @@ public class UserServiceTest {
         @Test
         @WithMockUser
         public void getInformationAboutUserAuthorizedTest() throws Exception {
-            when(userService.getInformationAboutUser()).thenReturn(new User());
+            when(userService.getInformationAboutUser()).thenReturn(new User(1, "user@example.com", "John", "Doe", "+1234567890", "http://example.com/avatar.jpg", Role.USER));
             this.mockMvc.perform(MockMvcRequestBuilders.get("/users/me")
                             .accept(MediaType.APPLICATION_JSON))
                     .andDo(print())
@@ -36,7 +37,7 @@ public class UserServiceTest {
 
     @Test
       public void getInformationAboutUserNoAuthorizedTest() throws Exception {
-        when(userService.getInformationAboutUser()).thenReturn(new User());
+        when(userService.getInformationAboutUser()).thenReturn(new User(1, "user@example.com", "John", "Doe", "+1234567890", "http://example.com/avatar.jpg", Role.USER));
         this.mockMvc.perform(MockMvcRequestBuilders.get("/users/me")
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())

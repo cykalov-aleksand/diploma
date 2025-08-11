@@ -17,6 +17,8 @@ import ru.skypro.homework.dto.Ad;
 import ru.skypro.homework.dto.Ads;
 import ru.skypro.homework.dto.ExtendedAd;
 import ru.skypro.homework.service.AdService;
+import ru.skypro.homework.dto.User;
+import ru.skypro.homework.dto.Role;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -30,6 +32,7 @@ public class AdsControllerTest {
     @MockBean
     private AdService adService;
     private UsersController adsUser;
+    private User user = new User(1, "user@example.com", "John", "Doe", "+1234567890", "http://example.com/avatar.jpg", Role.USER);
 
     @Test
     @WithMockUser
