@@ -1,9 +1,9 @@
 package ru.skypro.homework.dto;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-
-public class AdTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+class AdTest {
 
     @Test
     public void testConstructorAndGetters() {
