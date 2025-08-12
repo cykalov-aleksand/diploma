@@ -13,6 +13,7 @@ import ru.skypro.homework.model.UserModel;
 import ru.skypro.homework.repository.AdRepository;
 import ru.skypro.homework.repository.AvatarAdRepository;
 import ru.skypro.homework.repository.UserRepository;
+import ru.skypro.homework.service.AvatarComponent;
 import ru.skypro.homework.service.impl.AuthServiceImpl;
 
 import java.io.IOException;

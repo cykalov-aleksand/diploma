@@ -1,176 +1,151 @@
 package ru.skypro.homework.controller;
 
-
-import org.json.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import ru.skypro.homework.dto.CreateOrUpdateAd;
 import ru.skypro.homework.dto.Ad;
 import ru.skypro.homework.dto.Ads;
+import ru.skypro.homework.dto.CreateOrUpdateAd;
 import ru.skypro.homework.dto.ExtendedAd;
 import ru.skypro.homework.service.AdService;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 public class AdsControllerTest {
+
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @MockBean
     private AdService adService;
 
     @Test
     @WithMockUser
-    public void getInformationAboutAdAuthorizedTest() throws Exception {
+    void getInformationAboutAdAuthorizedTest() throws Exception {
         int id = 1;
         when(adService.getInformationAboutAd(id)).thenReturn(new ExtendedAd());
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/ads/{id}?id=" + id, "id=")
-                        .accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/ads/{id}", id))
                 .andDo(print())
-                .andExpect(status().is(200));
+                .andExpect(status().isOk());
     }
 
     @Test
-    public void getInformationAboutAdNoAuthorizedTest() throws Exception {
+    void getInformationAboutAdNoAuthorizedTest() throws Exception {
         int id = 1;
         when(adService.getInformationAboutAd(id)).thenReturn(new ExtendedAd());
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/ads/{id}?id=" + id, "id=")
-                        .accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/ads/{id}", id))
                 .andDo(print())
-                .andExpect(status().is(401));
+                .andExpect(status().isUnauthorized());
     }
 
     @Test
     @WithMockUser
-    public void getAdsFromAuthorizedTest() throws Exception {
-        Ads user = new Ads();
-        when(adService.getAdsFromAuthorized()).thenReturn(user);
-        mockMvc.perform(MockMvcRequestBuilders.get("/ads/me")
-                        .accept(MediaType.APPLICATION_JSON))
+    void getAdsFromAuthorizedTest() throws Exception {
+        when(adService.getAdsFromAuthorized()).thenReturn(new Ads());
+        mockMvc.perform(get("/ads/me"))
                 .andDo(print())
-                .andExpect(status().is(200));
+                .andExpect(status().isOk());
     }
 
     @Test
-    public void getAdsFromNoAuthorizedTest() throws Exception {
-        Ads user = new Ads();
-        when(adService.getAdsFromAuthorized()).thenReturn(user);
-        mockMvc.perform(MockMvcRequestBuilders.get("/ads/me")
-                        .accept(MediaType.APPLICATION_JSON))
+    void getAdsFromNoAuthorizedTest() throws Exception {
+        when(adService.getAdsFromAuthorized()).thenReturn(new Ads());
+        mockMvc.perform(get("/ads/me"))
                 .andDo(print())
-                .andExpect(status().is(401));
+                .andExpect(status().isUnauthorized());
     }
-
 
     @Test
     @WithMockUser
-    public void getAllAdsAuthorizedTest() throws Exception {
+    void getAllAdsAuthorizedTest() throws Exception {
         when(adService.getAllService()).thenReturn(new Ads());
-        mockMvc.perform(MockMvcRequestBuilders
-                        .get("/ads")
-                        .accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/ads"))
                 .andDo(print())
-                .andExpect(status().is(200));
+                .andExpect(status().isOk());
     }
 
     @Test
     @WithMockUser
-    public void updatingInformationAboutAdAuthorizedTest() throws Exception {
-        CreateOrUpdateAd createOrUpdateAd = new CreateOrUpdateAd();
+    void updatingInformationAboutAdAuthorizedTest() throws Exception {
         int id = 1;
-        JSONObject createObject = new org.json.JSONObject();
-        createObject.put("title", "");
-        createObject.put("description", "");
-        createObject.put("price", 1000000);
-
-        when(adService.updatingInformationAboutAd(id, createOrUpdateAd)).thenReturn(new Ad());
-        mockMvc.perform(MockMvcRequestBuilders.patch("/ads/{id}?id=" + id, "id=")
-                        .content(createObject.toString())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().is(200));
-    }
-
-    @Test
-    public void updatingInformationAboutAdNoAuthorizedTest() throws Exception {
         CreateOrUpdateAd createOrUpdateAd = new CreateOrUpdateAd();
-        int id = 1;
-        JSONObject createObject = new org.json.JSONObject();
-        createObject.put("title", "");
-        createObject.put("description", "");
-        createObject.put("price", 1000000);
+        createOrUpdateAd.setTitle("title");
+        createOrUpdateAd.setDescription("description");
+        createOrUpdateAd.setPrice(100);
 
-        when(adService.updatingInformationAboutAd(id, createOrUpdateAd)).thenReturn(new Ad());
-        mockMvc.perform(MockMvcRequestBuilders.patch("/ads/{id}?id=" + id, "id=")
-                        .content(createObject.toString())
+        when(adService.updatingInformationAboutAd(eq(id), any(CreateOrUpdateAd.class))).thenReturn(new Ad());
+
+        mockMvc.perform(patch("/ads/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .content(objectMapper.writeValueAsString(createOrUpdateAd)))
                 .andDo(print())
-                .andExpect(status().is(401));
+                .andExpect(status().isOk());
     }
 
+    @Test
+    void updatingInformationAboutAdNoAuthorizedTest() throws Exception {
+        int id = 1;
+        CreateOrUpdateAd createOrUpdateAd = new CreateOrUpdateAd();
+        mockMvc.perform(patch("/ads/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(createOrUpdateAd)))
+                .andDo(print())
+                .andExpect(status().isUnauthorized());
+    }
 
     @Test
     @WithMockUser
-    public void UpdatingAdImageAuthorizedTest() throws Exception {
-                int id = 1;
-        MockMultipartFile mockMultipartFile = new MockMultipartFile("image", "image.jpeg", MediaType.MULTIPART_FORM_DATA_VALUE,
-                "image".getBytes());
-        JSONObject jsonObject = new JSONObject();
+    void updatingAdImageAuthorizedTest() throws Exception {
+        int id = 1;
+        MockMultipartFile image = new MockMultipartFile("image", "image.jpg", MediaType.IMAGE_JPEG_VALUE, "image".getBytes());
 
-        jsonObject.put("image", mockMultipartFile.getOriginalFilename());
-        jsonObject.put("type", mockMultipartFile.getContentType());
-        mockMvc.perform(MockMvcRequestBuilders.patch("/ads/{id}/image?id=" + id+"&image="+mockMultipartFile.getName(), "id","image")
-                       // .content("image=@"+mockMultipartFile.getOriginalFilename()+";type="+mockMultipartFile.getContentType())
-                        .content(jsonObject.toString())
-                        .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
-                        .accept(MediaType.ALL_VALUE))
+        when(adService.UpdatingAdImage(eq(id), any())).thenReturn(ResponseEntity.ok(""));
+
+        mockMvc.perform(multipart("/ads/{id}/image", id)
+                        .file(image)
+                        .with(request -> {
+                            request.setMethod("PATCH");
+                            return request;
+                        }))
                 .andDo(print())
-                .andExpect(status().is(200));
+                .andExpect(status().isOk());
     }
-
-
-
 
     @Test
     @WithMockUser
-    public void addingAdAuthorizedTest() throws Exception {
-        CreateOrUpdateAd createOrUpdateAd=new CreateOrUpdateAd();
-        MockMultipartFile mockMultipartFile = new MockMultipartFile("image", "image.jpeg", MediaType.MULTIPART_FORM_DATA_VALUE,
-                "image".getBytes());
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("title","заголовок объявления");
-        jsonObject.put("description","описание объявления");
-        jsonObject.put("price", "1000000");
+    void addingAdAuthorizedTest() throws Exception {
+        CreateOrUpdateAd createOrUpdateAd = new CreateOrUpdateAd();
+        createOrUpdateAd.setTitle("title");
+        createOrUpdateAd.setDescription("description");
+        createOrUpdateAd.setPrice(100);
 
+        MockMultipartFile properties = new MockMultipartFile("parameters", "", MediaType.APPLICATION_JSON_VALUE, objectMapper.writeValueAsString(createOrUpdateAd).getBytes());
+        MockMultipartFile image = new MockMultipartFile("image", "image.jpg", MediaType.IMAGE_JPEG_VALUE, "image".getBytes());
 
-        when(adService.addingAd(createOrUpdateAd, mockMultipartFile)).thenReturn(new Ad());
-        mockMvc.perform(MockMvcRequestBuilders.post("/ads")
-                        .content(jsonObject.toString())
-                        .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
-                        .accept(MediaType.ALL_VALUE))
+        when(adService.addingAd(any(CreateOrUpdateAd.class), any())).thenReturn(ResponseEntity.status(201).body(new Ad()));
+
+        mockMvc.perform(multipart("/ads")
+                        .file(properties)
+                        .file(image))
                 .andDo(print())
-                .andExpect(status().is(200));
+                .andExpect(status().isCreated());
     }
-
-
-
-
-
-
 }
-
