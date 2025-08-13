@@ -40,19 +40,6 @@ public interface AdRepository extends JpaRepository<AdModel,Integer> {
     AdModel findPkObject(int pk);
 
     /**
-     * Создаем SQL запрос для поиска количества объявлений в таблице
-     */
-    @Query(value = "SELECT count(*) FROM ad_model", nativeQuery = true)
-    int countAdList();
-
-    /**
-     * Создаем SQL запрос для поиска количества объявлений в таблице по указанному автору
-     */
-    @Query(value = "SELECT count(*) FROM ad_model WHERE author=?1", nativeQuery = true)
-    int countAdListAuthor(int author);
-
-
-    /**
      * Создаем SQL запрос для поиска ссылки на user_model по указанному pk
      */
     @Query(value = "SELECT author FROM ad_model WHERE pk=?1", nativeQuery = true)
@@ -97,4 +84,9 @@ public interface AdRepository extends JpaRepository<AdModel,Integer> {
      */
     @Query(value = "SELECT author FROM ad_model WHERE pk =?1", nativeQuery = true)
     int findAuthorToPk(int pk);
+    /**
+     * Создаем SQL запрос для создания списка ad
+     */
+    @Query(value = "SELECT * FROM ad_model", nativeQuery = true)
+    List<AdModel> findAllAd();
 }

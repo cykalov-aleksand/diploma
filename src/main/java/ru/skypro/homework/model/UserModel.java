@@ -6,7 +6,6 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import ru.skypro.homework.dto.Role;
 
 import java.util.List;
 import java.util.Objects;
@@ -18,63 +17,40 @@ import java.util.Objects;
 public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    @Column(nullable = false, name = "user_name",length = 32)
-    @Size(min = 4, max = 32)
-    private String userName;
-    @Column(length = 16)
-    @Size(min = 8, max = 16)
-    private String password;
-    private String email;
-    @Column(nullable = false, name = "first_name",length = 16)
+    private Integer ppk;
+    @Column(nullable = false, name = "first_name", length = 16)
     @Size(min = 2, max = 16)
     private String firstName;
-    @Column(nullable = false, name = "last_name",length = 16)
+    @Column(nullable = false, name = "last_name", length = 16)
     @Size(min = 2, max = 16)
     private String lastName;
-    @Pattern(regexp ="\\+7\\s?\\(?\\d{3}\\)?\\s?\\d{3}-?\\d{2}-?\\d{2}")
+    @Pattern(regexp = "\\+7\\s?\\(?\\d{3}\\)?\\s?\\d{3}-?\\d{2}-?\\d{2}")
     @Schema(example = "+7(297)98339-39")
     private String phone;
     private String image;
-    @Enumerated(EnumType.STRING)
-    private Role role;
     @OneToMany(mappedBy = "userModel")
-    private List<AdModel>adModels;
-    public UserModel(){}
+    private List<AdModel> adModels;
+    @OneToOne
+    @JoinColumn(name = "id_register")
+    private RegisterUserModel registerUserModel;
 
-    public Integer getId() {
-        return id;
+    public UserModel() {
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof UserModel)) return false;
+        UserModel userModel = (UserModel) object;
+        return Objects.equals(ppk, userModel.ppk);
     }
 
-    public @Size(min = 4, max = 32) String getUserName() {
-        return userName;
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(ppk);
     }
 
-    public void setUserName(@Size(min = 4, max = 32) String userName) {
-        this.userName = userName;
-    }
-
-    public @Size(min = 8, max = 16) String getPassword() {
-        return password;
-    }
-
-    public void setPassword(@Size(min = 8, max = 16) String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public @Size(min = 2, max = 16) String getFirstName() {
+       public @Size(min = 2, max = 16) String getFirstName() {
         return firstName;
     }
 
@@ -98,55 +74,16 @@ public class UserModel {
         this.phone = phone;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public List<AdModel> getAdModels() {
-        return adModels;
-    }
-
-    public void setAdModels(List<AdModel> adModels) {
-        this.adModels = adModels;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (!(object instanceof UserModel)) return false;
-        UserModel userModel = (UserModel) object;
-        return Objects.equals(id, userModel.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
-
     @Override
     public String toString() {
         return "UserModel{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
+                "ppk=" + ppk +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", phone='" + phone + '\'' +
                 ", image='" + image + '\'' +
-                ", role=" + role +
+                ", adModels=" + adModels +
+                ", registerUserModel=" + registerUserModel +
                 '}';
     }
 }

@@ -19,13 +19,7 @@ public interface CommentRepository extends JpaRepository<CommentModel, Integer> 
     @Query(value = "INSERT INTO comment_model (ad_pk,created_at,text)VALUES (?1,?2,?3)", nativeQuery = true)
     void saveComment(int adPk, long createAt, String text);
 
-    /**
-     * Создаем SQL запрос для поиска pk по указанным create_at и text
-     */
-    @Query(value = "SELECT pk FROM comment_model WHERE created_at=?1 AND text=?2", nativeQuery = true)
-    int pkToCreateText(long createAt, String text);
-
-    /**
+        /**
      * Создаем SQL запрос для поиска списка pk по заданному ad_pk
      */
     @Query(value = "SELECT pk FROM comment_model WHERE ad_pk=?1", nativeQuery = true)
@@ -45,16 +39,11 @@ public interface CommentRepository extends JpaRepository<CommentModel, Integer> 
     @Query(value = "SELECT * FROM comment_model WHERE pk=?1", nativeQuery = true)
     CommentModel commentModel(int pk);
 
-    /**
-     * Создаем SQL запрос для проведения корректировки значения  text по указанному pk
-     */
-    @Transactional
-    @Modifying
-    @Query(value = "UPDATE comment_model SET text=?1 WHERE pk=?2", nativeQuery = true)
-    void updatingCommentPk(String text, int pk);
-    /**
+       /**
      * Создаем SQL запрос для поиска списка комментариев по заданному объявлению ad_pk
      */
     @Query(value = "SELECT * FROM comment_model WHERE ad_pk=?1", nativeQuery = true)
     List<CommentModel> listCommentModel(int pk);
+
 }
+

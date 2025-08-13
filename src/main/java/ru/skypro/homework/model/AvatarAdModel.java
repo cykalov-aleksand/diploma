@@ -8,6 +8,7 @@ import java.util.Objects;
 
 @Setter
 @Getter
+
 @Table(name = "avatar_ad")
 @Entity
 public class AvatarAdModel {
@@ -27,54 +28,6 @@ public class AvatarAdModel {
     @JoinColumn(name = "ad_pk")
      private AdModel adModel;
 public AvatarAdModel(){}
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
-
-    public String getMediaType() {
-        return mediaType;
-    }
-
-    public void setMediaType(String mediaType) {
-        this.mediaType = mediaType;
-    }
-
-    public long getFileSize() {
-        return fileSize;
-    }
-
-    public void setFileSize(long fileSize) {
-        this.fileSize = fileSize;
-    }
-
-    public byte[] getData() {
-        return data;
-    }
-
-    public void setData(byte[] data) {
-        this.data = data;
-    }
-
-    public AdModel getAdModel() {
-        return adModel;
-    }
-
-    public void setAdModel(AdModel adModel) {
-        this.adModel = adModel;
-    }
 
     @Override
     public boolean equals(Object object) {

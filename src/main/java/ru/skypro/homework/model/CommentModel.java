@@ -34,34 +34,6 @@ public class CommentModel {
         return Objects.equals(pk, that.pk);
     }
 
-    public Integer getPk() {
-        return pk;
-    }
-
-    public void setPk(Integer pk) {
-        this.pk = pk;
-    }
-
-    public AdModel getAdModel() {
-        return adModel;
-    }
-
-    public long getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(long createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
     @Override
     public int hashCode() {
         return Objects.hashCode(pk);

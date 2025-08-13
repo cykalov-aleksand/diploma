@@ -22,65 +22,22 @@ public class AdModel {
     @Column(nullable = false, name = "image")
     private String image;
     private String title;
-    @Size(min = 0, max = 10000000)
+    @Size(max = 10000000)
     private int price;
     private String description;
     @OneToMany(mappedBy = "adModel")
     private List<CommentModel>commentModels;
     public AdModel(){}
 
-    public Integer getPk() {
-        return pk;
-    }
-
-    public void setPk(Integer pk) {
-        this.pk = pk;
-    }
-
-    public UserModel getUserModel() {
-        return userModel;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    @Size(min = 0, max = 10000000)
+    @Size(max = 10000000)
     public int getPrice() {
         return price;
     }
 
-    public void setPrice(@Size(min = 0, max = 10000000) int price) {
+    public void setPrice(@Size(max = 10000000) int price) {
         this.price = price;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public List<CommentModel> getCommentModels() {
-        return commentModels;
-    }
-
-    public void setCommentModels(List<CommentModel> commentModels) {
-        this.commentModels = commentModels;
-    }
 
     @Override
     public boolean equals(Object object) {
@@ -100,16 +57,6 @@ public class AdModel {
         this.userModel = userModel;
     }
 
-    @Override
-    public String toString() {
-        return "AdModel{" +
-                "pk=" + pk +
-                ", userModel=" + userModel +
-                ", imageId='" + image + '\'' +
-                ", title='" + title + '\'' +
-                ", price=" + price +
-                ", description='" + description + '\'' +
-                '}';
-    }
+
 }
 
