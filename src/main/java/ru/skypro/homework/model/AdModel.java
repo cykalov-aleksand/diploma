@@ -38,7 +38,6 @@ public class AdModel {
         this.price = price;
     }
 
-
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
@@ -55,8 +54,6 @@ public class AdModel {
     @JsonIgnore
     public void setUserModel(UserModel userModel) {
         this.userModel = userModel;
-    }
-
-
+  }
 }
 

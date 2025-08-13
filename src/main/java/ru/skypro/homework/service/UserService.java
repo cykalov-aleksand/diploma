@@ -18,7 +18,6 @@ import ru.skypro.homework.repository.RegisterUserRepository;
 import ru.skypro.homework.repository.UserRepository;
 import ru.skypro.homework.service.impl.AuthServiceImpl;
 
-
 import java.io.*;
 import java.nio.file.Path;
 
@@ -57,7 +56,6 @@ public class UserService {
         registerUserRepository.updatePassword(reversNewPasswordMapper.getNewPassword(), authService.usernameAuthorised());
         return ResponseEntity.ok().build();
     }
-
 
     public User getInformationAboutUser() {
         RegisterUserModel userNameAuthorised = registerUserRepository.informationAboutUser(authService.usernameAuthorised());
