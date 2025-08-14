@@ -26,7 +26,3 @@ public interface AdMapper {
         return ads;
     }
 }
-
-
-
-
