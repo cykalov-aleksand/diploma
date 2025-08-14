@@ -8,6 +8,7 @@ import java.util.Objects;
 
 @Setter
 @Getter
+
 @Table(name = "avatar_ad")
 @Entity
 public class AvatarAdModel {
@@ -31,7 +32,8 @@ public AvatarAdModel(){}
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
-        if (!(object instanceof AvatarAdModel that)) return false;
+        if (!(object instanceof AvatarAdModel)) return false;
+        AvatarAdModel that = (AvatarAdModel) object;
         return Objects.equals(id, that.id);
     }
 

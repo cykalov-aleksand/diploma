@@ -9,10 +9,4 @@ public class Ads {
     @Schema(description = "общее количество объявлений")
     private int count;
     private List<Ad>results;
-    Ads(){};
-
-    public Ads(int count, List<Ad> results) {
-        this.count = count;
-        this.results = results;
-    }
 }

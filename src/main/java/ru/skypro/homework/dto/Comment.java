@@ -17,4 +17,4 @@ public class Comment {
   private   int pk;
   @Schema(description = "текст комментария")
   private   String text;
-}
+  }

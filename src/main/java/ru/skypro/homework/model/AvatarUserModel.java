@@ -32,7 +32,8 @@ public AvatarUserModel(){}
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
-        if (!(object instanceof AvatarUserModel that)) return false;
+        if (!(object instanceof AvatarUserModel)) return false;
+        AvatarUserModel that = (AvatarUserModel) object;
         return Objects.equals(id, that.id);
     }
 

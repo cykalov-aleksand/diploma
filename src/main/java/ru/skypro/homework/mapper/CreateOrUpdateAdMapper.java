@@ -1,0 +1,17 @@
+package ru.skypro.homework.mapper;
+
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Component;
+import ru.skypro.homework.dto.CreateOrUpdateAd;
+import ru.skypro.homework.model.AdModel;
+
+@Component
+@Mapper(componentModel = "spring")
+public interface CreateOrUpdateAdMapper {
+    CreateOrUpdateAdMapper INSTANCE = Mappers.getMapper(CreateOrUpdateAdMapper.class);
+    AdModel toDto(CreateOrUpdateAd createOrUpdateAd );
+    CreateOrUpdateAd toModel(AdModel adModel);
+}
+
+

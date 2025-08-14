@@ -7,28 +7,30 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Objects;
+
 @Getter
+@Setter
 @Table(name = "comment_model")
 @Entity
 public class CommentModel {
-    @Setter
     @Id
     @GeneratedValue
     private Integer pk;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "author_id")
+    @JoinColumn(name = "ad_pk")
     private AdModel adModel;
-//private int authorId;
-    @Setter
     @Column(nullable = false, name = "created_at")
-private long createdAt;
-@Setter
-private String text;
-public CommentModel(){}
+    private long createdAt;
+    private String text;
+
+    public CommentModel() {
+    }
+
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
-        if (!(object instanceof CommentModel that)) return false;
+        if (!(object instanceof CommentModel)) return false;
+        CommentModel that = (CommentModel) object;
         return Objects.equals(pk, that.pk);
     }
 

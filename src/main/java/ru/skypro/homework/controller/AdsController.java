@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,8 @@ import ru.skypro.homework.dto.CreateOrUpdateAd;
 import ru.skypro.homework.dto.Ad;
 import ru.skypro.homework.dto.Ads;
 import ru.skypro.homework.dto.ExtendedAd;
+
+import ru.skypro.homework.model.AdModel;
 import ru.skypro.homework.service.AdService;
 
 import java.io.IOException;
@@ -31,6 +34,8 @@ public class AdsController {
     public AdsController(AdService adService) {
         this.adService = adService;
     }
+    //@Autowired
+    //CreateOrUpdateAdMapper createOrUpdateAdMapper;
 
     @Tag(name = "Объявления")
     @GetMapping()
@@ -79,8 +84,9 @@ public class AdsController {
             @ApiResponse(responseCode = "Not fount", description = "404", content = {@Content(schema = @Schema())})
     })
     public Ad updatingInformationAboutAd(@RequestParam("id") int id, @RequestBody CreateOrUpdateAd createOrUpdateAd) {
-
+//AdModel create=createOrUpdateAdMapper.toDto(createOrUpdateAd);
         return adService.updatingInformationAboutAd(id, createOrUpdateAd);
+       // return adService.updatingInformationAboutAd(id, createOrUpdateAd);
     }
 
     @Tag(name = "Объявления")
@@ -119,7 +125,8 @@ public class AdsController {
     })
        public ResponseEntity<Ad> addingAd(@RequestPart("parameters") CreateOrUpdateAd parameters,
                                           @RequestParam("image") MultipartFile image) throws IOException {
-                return adService.addingAd(parameters, image);
+       // AdModel create=createOrUpdateAdMapper.toDto(parameters);
+                        return adService.addingAd( parameters, image);
 
     }
 }

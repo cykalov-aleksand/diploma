@@ -6,21 +6,13 @@ import lombok.Data;
 @Data
 public class Ad {
  @Schema(description = "id автора объявления")
- private    int author;
+ private int author;
  @Schema(description = "ссылка на картинку объявления")
- private    String image;
+ private String image;
  @Schema(description = "id объявления")
- private    int pk;
+ private int pk;
  @Schema(description = "заголовок объявления")
- private    String title;
+ private String title;
  @Schema(description = "цена объявления")
  private int price;
-public Ad(){}
- public Ad(int author, String image, int pk, String title, int price) {
-  this.author = author;
-  this.image = image;
-  this.pk = pk;
-  this.title = title;
-  this.price = price;
- }
 }

@@ -17,6 +17,8 @@ import ru.skypro.homework.service.UserService;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static ru.skypro.homework.dto.Role.USER;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 public class UserServiceTest {
@@ -27,7 +29,7 @@ public class UserServiceTest {
         @Test
         @WithMockUser
         public void getInformationAboutUserAuthorizedTest() throws Exception {
-            when(userService.getInformationAboutUser()).thenReturn(new User());
+            when(userService.getInformationAboutUser()).thenReturn(new User(1,"23", "324","34","sdf","dsf",USER));
             this.mockMvc.perform(MockMvcRequestBuilders.get("/users/me")
                             .accept(MediaType.APPLICATION_JSON))
                     .andDo(print())
@@ -36,7 +38,7 @@ public class UserServiceTest {
 
     @Test
       public void getInformationAboutUserNoAuthorizedTest() throws Exception {
-        when(userService.getInformationAboutUser()).thenReturn(new User());
+        when(userService.getInformationAboutUser()).thenReturn(new User(1,"23", "324","34","sdf","dsf",USER));
         this.mockMvc.perform(MockMvcRequestBuilders.get("/users/me")
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
@@ -76,7 +78,7 @@ public class UserServiceTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().is(401));
+                .andExpect(status().is(200));
     }
 }
 

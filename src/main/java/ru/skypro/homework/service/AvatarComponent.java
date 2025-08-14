@@ -27,9 +27,7 @@ public class AvatarComponent {
         this.userRepository = userRepository;
     }
 
-   // @Value("${cover.dir.path}")
-    //private String coversDir;
-    public Path saveAvatar(String coversDir,String saveNameAvatar,MultipartFile image) throws IOException {
+   public Path saveAvatar(String coversDir,String saveNameAvatar,MultipartFile image) throws IOException {
          Path filePath = Path.of(coversDir, saveNameAvatar + "." + getExtension(Objects.requireNonNull(image.getOriginalFilename())));
         Files.createDirectories(filePath.getParent());
         Files.deleteIfExists(filePath);

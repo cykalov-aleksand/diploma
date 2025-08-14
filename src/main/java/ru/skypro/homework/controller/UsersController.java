@@ -21,10 +21,13 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/users")
-@RequiredArgsConstructor
   @Tag(name = "Пользователи")
 public class UsersController {
     private final UserService userService;
+
+    public UsersController(UserService userService) {
+        this.userService = userService;
+    }
 
     @Tag(name = "Пользователи")
     @PostMapping("/set_password")
@@ -72,4 +75,6 @@ public class UsersController {
     }
 
         }
+
+
 
