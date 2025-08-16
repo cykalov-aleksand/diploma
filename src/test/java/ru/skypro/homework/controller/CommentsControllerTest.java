@@ -34,7 +34,7 @@ public class CommentsControllerTest {
     @WithMockUser
     public void getCommentsOnAdAuthorizedTest() throws Exception {
         int id = 1;
-        when(commentService.getCommentsOnAd(id)).thenReturn(new Comments());
+        when(commentService.getCommentsOnAd(id)).thenReturn(ResponseEntity.ok(new Comments()));
         this.mockMvc.perform(MockMvcRequestBuilders.get("/ads/{id}/comments?id=" + id, "id")
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
@@ -44,7 +44,7 @@ public class CommentsControllerTest {
     @Test
     public void getCommentsOnAdNoAuthorizedTest() throws Exception {
         int id = 1;
-        when(commentService.getCommentsOnAd(id)).thenReturn(new Comments());
+        when(commentService.getCommentsOnAd(id)).thenReturn(ResponseEntity.ok(new Comments()));
         this.mockMvc.perform(MockMvcRequestBuilders.get("/ads/{id}/comments?id=" + id, "id")
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
