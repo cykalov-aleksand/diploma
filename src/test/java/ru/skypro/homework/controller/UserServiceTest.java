@@ -29,7 +29,15 @@ public class UserServiceTest {
         @Test
         @WithMockUser
         public void getInformationAboutUserAuthorizedTest() throws Exception {
-            when(userService.getInformationAboutUser()).thenReturn(new User(1,"23", "324","34","sdf","dsf",USER));
+            User user = new User();
+            user.setId(1);
+            user.setEmail("23");
+            user.setFirstName("324");
+            user.setLastName("34");
+            user.setPhone("sdf");
+            user.setImage("dsf");
+            user.setRole(USER);
+            when(userService.getInformationAboutUser()).thenReturn(user);
             this.mockMvc.perform(MockMvcRequestBuilders.get("/users/me")
                             .accept(MediaType.APPLICATION_JSON))
                     .andDo(print())
@@ -38,7 +46,15 @@ public class UserServiceTest {
 
     @Test
       public void getInformationAboutUserNoAuthorizedTest() throws Exception {
-        when(userService.getInformationAboutUser()).thenReturn(new User(1,"23", "324","34","sdf","dsf",USER));
+        User user = new User();
+        user.setId(1);
+        user.setEmail("23");
+        user.setFirstName("324");
+        user.setLastName("34");
+        user.setPhone("sdf");
+        user.setImage("dsf");
+        user.setRole(USER);
+        when(userService.getInformationAboutUser()).thenReturn(user);
         this.mockMvc.perform(MockMvcRequestBuilders.get("/users/me")
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
